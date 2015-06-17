@@ -38,7 +38,7 @@ define([
 					action = '';
 				}
                 $.get('/' + action).done(function(contents) {
-					$('#content').html($(contents).find('#content'));
+					$('#wrapper').html($(contents).find('#content'));
 					nav.refresh();
 				});
             },
