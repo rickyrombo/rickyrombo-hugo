@@ -95,6 +95,7 @@ header .col>div {
 .page-tagline {
     font-size: large;
     padding-top: 10px;
+	text-align: right;
 }
 
 .site-logo img {
