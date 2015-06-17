@@ -10,11 +10,13 @@
 							<h1>{{ .Title }}</h1>
 						</div>
 					</div>
+					{{ with .Description }}
 					<div class="col col-md-6">
 						<div class="page-tagline">
-							<p>{{ .Data.Tagline }}</p>
+							<p>{{ . }}</p>
 						</div>
 					</div>
+					{{ end }}
 				</div>
 			</header>
 			<div id="main">
