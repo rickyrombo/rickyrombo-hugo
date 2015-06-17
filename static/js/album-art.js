@@ -15,7 +15,7 @@ define(['jquery', 'soundcloud_sdk'], function($) {
                     $(img).attr('src', e.user.avatar_url);
                 });
                 var newElement = $('<a/>');
-                $(newElement).attr('href', e.permalink_url).addClass('album-art');
+                $(newElement).attr('href', e.permalink_url).attr('target', '_blank').addClass('album-art');
                 $(newElement).attr('data-title', e.title).attr('data-artist', e.user.username);
                 $(newElement).attr('data-index', i);
                 $(newElement).append(img);

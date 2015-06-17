@@ -1,10 +1,16 @@
 define('nav', ['jquery', 'router'], function($, Router){
-    $(document).ready(function(){
-        $('a.push-state').click(function(e){
-            e.preventDefault();
-            Backbone.history.navigate(e.target.getAttribute('href'), {trigger: true});
-            $('.navbar-toggle').click();
-        });
+    var refresh = function() {
+		console.log('refreshing', $('a[target!="_blank"]'));
+		$('a[target!="_blank"]').click(function(e){
+			e.preventDefault();
+			Backbone.history.navigate(e.target.getAttribute('href'), {trigger: true});
+			if ($(e.target).hasClass('push-state')){
+				$('.navbar-toggle').click();
+			}
+		});
+	};
+	$(document).ready(function(){
+        refresh();
     });
     $('.navbar-toggle').click(function(e){
         e.preventDefault();
@@ -19,4 +25,5 @@ define('nav', ['jquery', 'router'], function($, Router){
             $(this).addClass('collapsed');
         }
     });
+	return { refresh: refresh };
 });
