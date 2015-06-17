@@ -1,0 +1,19 @@
+<section>
+    <div class="followings">
+        {{#each users}}
+        {{#if_mod @index 4 0}}
+        <div class="row">
+        {{/if_mod}}
+            {{#if_mod @index 2 0}}
+            <div class="pair col-md-6">
+            {{/if_mod}}
+        {{>user}}
+            {{#if_mod @index 2 1}}
+            </div>
+            {{/if_mod}}
+        {{#if_mod @index 4 3}}
+        </div>
+        {{/if_mod}}
+        {{/each}}
+    </div>
+</section>
