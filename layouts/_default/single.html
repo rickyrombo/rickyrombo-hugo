@@ -1,13 +1,8 @@
-{{ partial "head.html" . }}
 {{ partial "header.html" . }}
-{{ $baseurl := .Site.BaseURL }}
-<section id="main">
-    <h1>{{ .Title }}</h1>
-    <div>
-        <article class="content">
+<section>
+    <h2>{{ .Title }}</h2>
+    <article>
 	    {{ .Content }}
 	</article>
-    </div>
 </section>
 {{ partial "footer.html" . }}
-{{ partial "foot.html" . }}
