@@ -1,5 +1,20 @@
-{{ partial "head.html" }}
+{{ partial "head.html" . }}
 <body>
-	{{ partial "nav.html" }}
+	{{ partial "nav.html" . }}
 	<div id="wrapper">
-		<div id="content">
+		<div id="content" class="content">
+			<header class="header">
+				<div class="row">
+					<div class="col col-md-6">
+						<div class="page-title">
+							<h1>{{ .Title }}</h1>
+						</div>
+					</div>
+					<div class="col col-md-6">
+						<div class="page-tagline">
+							<p>{{ .Data.Tagline }}</p>
+						</div>
+					</div>
+				</div>
+			</header>
+			<div id="main">

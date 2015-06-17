@@ -1,10 +1,10 @@
-{{ partial "header.html" }}
+{{ partial "header.html" . }}
 <section>
 	<h2>Recent Posts</h2>
 	<ul>
-		{{ range .Data.Pages }}
+		{{ range where .Data.Pages "Section" "posts"}}
 		{{ .Render "li" }}
 		{{ end }}
 	</ul>
 </section>
-{{ partial "footer.html" }}
+{{ partial "footer.html" . }}
