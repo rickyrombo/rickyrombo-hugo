@@ -10,7 +10,7 @@ define([
     'soundcloud_sdk',
 ], function($, _, Backbone, PageTemplate, FavoritesTemplate, SoundPartial, if_mod, SCWidget){
    var FavoritesView = Backbone.View.extend({
-       el: $('#wrapper > .content'),
+       el: $('#wrapper'),
        html: false,
        template: function() {
            var a = $.Deferred();

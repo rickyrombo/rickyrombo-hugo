@@ -11,7 +11,7 @@ define([
     'soundcloud_sdk',
 ], function($, _, Backbone, Handlebars, PageTemplate, MusicTemplate, SoundPartial, if_mod, SCWidget){
         var View = Backbone.View.extend({
-            el: $('#wrapper > .content'),
+            el: $('#wrapper'),
             html: false,
             template: function() {
                 var a = new $.Deferred();
