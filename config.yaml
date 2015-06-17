@@ -1,0 +1,10 @@
+---
+contentdir: "content"
+layoutdir: "layouts"
+publishdir: "public"
+index:
+  category: "categories"
+baseurl: "http://rickyrombo.github.io"
+title: "RickyRombo"
+canonifyurls: true
+...
