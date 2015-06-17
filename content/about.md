@@ -1,6 +1,7 @@
 ---
-title: "About"
+title: "About Me"
 date: "2015-06-17"
+description: "I'm RickyRombo"
 ---
 <div class="row">
     <section class="col-md-9">
