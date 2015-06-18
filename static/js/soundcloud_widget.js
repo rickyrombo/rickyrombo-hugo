@@ -4,23 +4,45 @@ define(['jquery', 'soundcloud_api'], function($, SC_API){
         widget: SC.Widget($('#widget')[0]),
         playlist: [],
         currentSound: '',
+        nextPending: false,
         load: function(url, options) {
-            var playlist = [];
-            $('.sound').each(function(){ playlist.push($(this).find('.sound-link')[0].href); });
+            this.generatePlaylist();
             options.callback = function() {
-
                 $('#nowPlaying').text()
             };
+            $(window).on('soundsAdded', function(soundsAdded){
+                var i = Widget.playlist.length;
+                if (soundsAdded){
+                    Widget.generatePlaylist();
+                    console.log('generating playlist');
+                }
+                if (Widget.nextPending){
+                    console.log('going to next sound');
+                    Widget.currentSound = Widget.playlist[i % Widget.playlist.length];
+                    Widget.widget.load(Widget.currentSound, { auto_play: true });
+                    Widget.nextPending = false;
+                }
+            });
             this.widget.load(url, options);
-            this.playlist = playlist;
             this.currentSound = url;
+        },
+        generatePlaylist: function() {
+            var playlist = [];
+            $('.sound').each(function(){ playlist.push($(this).find('.sound-link')[0].href); });
+            this.playlist = playlist;
         },
         next: function() {
             this.widget.next();
             for (var i = 0; i < Widget.playlist.length; i++) {
                 if (Widget.playlist[i] === Widget.currentSound) {
-                    Widget.currentSound = Widget.playlist[(i+1) % Widget.playlist.length];
-                    Widget.widget.load(Widget.currentSound, { auto_play: true });
+                    if (i == Widget.playlist.length - 1) {
+                        console.log('end of playlist');
+                        Widget.nextPending = true;
+                        $(window).trigger('addMoreSounds', i);
+                    } else {
+                        Widget.currentSound = Widget.playlist[(i+1) % Widget.playlist.length];
+                        Widget.widget.load(Widget.currentSound, { auto_play: true });
+                    }
                     break;
                 }
             }

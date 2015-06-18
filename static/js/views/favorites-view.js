@@ -30,7 +30,6 @@ define([
                    $this.sounds.push(sound);
                });
                var soundsToRender = $this.sounds.slice($this.sounds.length - tracks.length);
-               console.log(soundsToRender.length, $this.sounds.length, tracks.length);
                if (soundsToRender.length === 0) {
                    a.reject();
                }
@@ -81,22 +80,28 @@ define([
           var scrollPos = $(window).scrollTop();
           var threshold = $(document).height() - $(window).height() * 3;
           if(scrollPos >= threshold){
-              if(this.isLoadingSounds){
-                  return;
-              }
-              this.isLoadingSounds = true;
-              console.log('adding more sounds');
-              var $this = this;
-              this.template(true).done(function(html){
-                  $(html).appendTo($this.el);
-                  console.log('sounds added');
-                  $this.isLoadingSounds = false;
-              });
+              this.addMoreSounds();
           }
+      },
+      addMoreSounds: function() {
+          if(this.isLoadingSounds){
+              return;
+          }
+          this.isLoadingSounds = true;
+          var $this = this;
+          this.template(true).done(function(html){
+              $(html).appendTo($this.el);
+              $this.isLoadingSounds = false;
+              $(window).trigger('soundsAdded', true);
+              $this.registerClickEvents();
+          }).fail(function(){
+              $(window).trigger('soundsAdded',  false);
+          });
       },
       render: function(){
           var $this = this;
           $(window).on('scroll', this.onscroll.bind($this));
+          $(window).on('addMoreSounds', this.addMoreSounds.bind($this));
           if (this.html === false){
               this.template().done(function(){
                   $this.$el.html($this.html);
