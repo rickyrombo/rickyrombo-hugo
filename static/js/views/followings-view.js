@@ -10,7 +10,7 @@ define([
     'soundcloud_sdk',
 ], function($, _, Backbone, PageTemplate, FollowingsTemplate, UserPartial, if_mod, SCWidget){
    var FavoritesView = Backbone.View.extend({
-       el: $('#wrapper'),
+       el: $('#main'),
        html: false,
        template: function() {
            SC.initialize({
@@ -19,7 +19,7 @@ define([
            var a = $.Deferred();
            var $this = this;
            var title = 'Followings';
-           SC.get('/users/rickyrombo/followings', {limit: 200} , function(raw_users){
+           SC.get('/users/rickyrombo/followings', {limit: 48} , function(raw_users){
                var users = [];
                raw_users.forEach(function(user){
                    if (user.avatar_url){
@@ -37,11 +37,7 @@ define([
                        user: UserPartial
                    }
                })
-               var html = PageTemplate({
-                   title: title,
-                   tagline: ['People worth a listen'],
-                   main: followingsHtml
-               })
+               var html = PageTemplate({ main: followingsHtml })
                var persistingTitle = $('title').text().split('|')[1];
                $('title').text(title + ' |' +  persistingTitle);
                $this.html = html;

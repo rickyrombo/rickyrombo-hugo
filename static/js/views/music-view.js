@@ -11,7 +11,7 @@ define([
     'soundcloud_sdk',
 ], function($, _, Backbone, Handlebars, PageTemplate, MusicTemplate, SoundPartial, if_mod, SCWidget){
         var View = Backbone.View.extend({
-            el: $('#wrapper'),
+            el: $('#main'),
             html: false,
             template: function() {
                 var a = new $.Deferred();
@@ -42,13 +42,7 @@ define([
                                 if_mod: if_mod,
                             }
                         });
-                    var html = PageTemplate(
-                        {
-                            title: title,
-                            tagline: ['<a title="Find me on Soundcloud" href="http://soundcloud.com/rickyrombo">Find me on Soundcloud</a>',
-                            '<a href="https://www.facebook.com/therickyrombo/app_208195102528120" title="Free downloads">Looking for free downloads?</a>'],
-                            main: musicHtml
-                        });
+                    var html = PageTemplate({ main: musicHtml });
                     var persistingTitle = $('title').text().split('|')[1];
                     $('title').text(title + ' |' +  persistingTitle);
                     $this.html = html;

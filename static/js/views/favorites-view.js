@@ -10,7 +10,7 @@ define([
     'soundcloud_sdk',
 ], function($, _, Backbone, PageTemplate, FavoritesTemplate, SoundPartial, if_mod, SCWidget){
    var FavoritesView = Backbone.View.extend({
-       el: $('#wrapper'),
+       el: $('#main'),
        html: false,
        template: function() {
            var a = $.Deferred();
@@ -19,7 +19,7 @@ define([
            });
            $this = this;
            var title = 'Favorites';
-           SC.get('/users/rickyrombo/favorites', {limit: 200} , function(tracks){
+           SC.get('/users/rickyrombo/favorites', {limit: 48} , function(tracks){
                var sounds = [];
                tracks.forEach(function(sound){
                    if (sound.artwork_url){
@@ -37,11 +37,7 @@ define([
                        sound: SoundPartial
                    }
                })
-               var html = PageTemplate({
-                   title: title,
-                   tagline: ['Now that\'s what I like'],
-                   main: favoritesHtml
-               })
+               var html = PageTemplate({ main: favoritesHtml });
                var persistingTitle = $('title').text().split('|')[1];
                $('title').text(title + ' |' +  persistingTitle);
                $this.html = html;

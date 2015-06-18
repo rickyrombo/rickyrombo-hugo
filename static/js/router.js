@@ -7,40 +7,44 @@ define([
     'views/music-view',
     'views/favorites-view',
     'views/followings-view',
-    'views/news-view',
-    'views/about-view',
-    'views/post-view',
-], function($, _, Backbone, App, nav, MusicView, FavoritesView, FollowingsView, NewsView, AboutView, PostView){
+], function($, _, Backbone, App, nav, MusicView, FavoritesView, FollowingsView){
         var musicView = new MusicView();
         var favoritesView = new FavoritesView();
         var followingsView = new FollowingsView();
-        var newsView = new NewsView();
-        var aboutView = new AboutView();
-		console.log(nav);
         var AppRouter = Backbone.Router.extend({
             routes: {
-                'music' : 'renderMusic',
-                'favorites' : 'renderFavorites',
-                'followings' : 'renderFollowings',
+                'music(/)' : 'renderMusic',
+                'favorites(/)' : 'renderFavorites',
+                'followings(/)' : 'renderFollowings',
                 '*action' : 'renderPage'
             },
             renderMusic: function() {
-                musicView.render();
+                this.renderPage('music').done(function(){
+                    musicView.render();
+                });
             },
             renderFavorites: function() {
-                favoritesView.render();
+                this.renderPage('favorites').done(function(){
+                    favoritesView.render();
+                });
             },
             renderFollowings: function() {
-                followingsView.render();
+                this.renderPage('followings').done(function(){
+                    followingsView.render();
+                })
             },
             renderPage: function(action) {
+                var a = $.Deferred();
 				if (action === null) {
 					action = '';
 				}
                 $.get('/' + action).done(function(contents) {
-					$('#wrapper').html($(contents).find('#content'));
+                    $('header').html($(contents).find('header').html());
+					$('#main').html($(contents).find('#main').html());
 					nav.refresh();
+                    a.resolve();
 				});
+                return a;
             },
             init : function(){ Backbone.history.start({pushState: true, root: "/"}); }
         });

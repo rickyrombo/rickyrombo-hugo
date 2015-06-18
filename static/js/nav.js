@@ -1,6 +1,5 @@
 define('nav', ['jquery', 'router'], function($, Router){
     var refresh = function() {
-		console.log('refreshing', $('a[target!="_blank"]'));
 		$('a[target!="_blank"]').click(function(e){
 			e.preventDefault();
 			Backbone.history.navigate(e.target.getAttribute('href'), {trigger: true});
