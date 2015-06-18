@@ -12,23 +12,30 @@ define([
    var FavoritesView = Backbone.View.extend({
        el: $('#main'),
        html: false,
-       template: function() {
+       sounds: [],
+       loads: 0,
+       isLoadingSounds: false,
+       template: function(partial) {
            var a = $.Deferred();
            SC.initialize({
                client_id: '4790864defb6a0d7eb3017d49a31b273'
            });
-           $this = this;
+           var $this = this;
            var title = 'Favorites';
-           SC.get('/users/rickyrombo/favorites', {limit: 48} , function(tracks){
-               var sounds = [];
+           SC.get('/users/rickyrombo/favorites', {limit: 48, offset: this.loads++ * 48} , function(tracks){
                tracks.forEach(function(sound){
                    if (sound.artwork_url){
                        sound.artwork_url = sound.artwork_url.replace(/large/, 't500x500');
                    }
-                   sounds.push(sound);
+                   $this.sounds.push(sound);
                });
+               var soundsToRender = $this.sounds.slice($this.sounds.length - tracks.length);
+               console.log(soundsToRender.length, $this.sounds.length, tracks.length);
+               if (soundsToRender.length === 0) {
+                   a.reject();
+               }
                var favoritesHtml = FavoritesTemplate({
-                   sounds: sounds
+                   sounds: soundsToRender
                },{
                    helpers: {
                        if_mod: if_mod
@@ -37,6 +44,10 @@ define([
                        sound: SoundPartial
                    }
                })
+               if (partial){
+                   a.resolve(favoritesHtml);
+                   return a;
+               }
                var html = PageTemplate({ main: favoritesHtml });
                var persistingTitle = $('title').text().split('|')[1];
                $('title').text(title + ' |' +  persistingTitle);
@@ -66,9 +77,27 @@ define([
 //              });
           });
       },
-      render: function(){
-          if (this.html === false){
+      onscroll: function(){
+          var scrollPos = $(window).scrollTop();
+          var threshold = $(document).height() - $(window).height() * 3;
+          if(scrollPos >= threshold){
+              if(this.isLoadingSounds){
+                  return;
+              }
+              this.isLoadingSounds = true;
+              console.log('adding more sounds');
               var $this = this;
+              this.template(true).done(function(html){
+                  $(html).appendTo($this.el);
+                  console.log('sounds added');
+                  $this.isLoadingSounds = false;
+              });
+          }
+      },
+      render: function(){
+          var $this = this;
+          $(window).on('scroll', this.onscroll.bind($this));
+          if (this.html === false){
               this.template().done(function(){
                   $this.$el.html($this.html);
                   $this.registerClickEvents();
