@@ -10,7 +10,7 @@ define(['jquery', 'soundcloud_sdk'], function($) {
             sounds.forEach(function(e, i){
                 var img = $('<img/>');
                 $(img).attr('src', e.artwork_url);
-                $(img).attr('alt', e.title);
+                $(img).attr('alt', '');
                 $(img).error(function(ev){
                     $(img).attr('src', e.user.avatar_url);
                 });
