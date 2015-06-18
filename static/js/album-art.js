@@ -30,9 +30,9 @@ define(['jquery', 'soundcloud_sdk'], function($) {
     });
     $(document).ready(function() {
         //load background art
-        SC.get('/users/rickyrombo/favorites', {limit: 200}, function(sounds) {
+        SC.get('/users/rickyrombo/favorites', {limit: 100}, function(sounds) {
             var $collage = $('<div/>').addClass('collage-container');
-            for(var i = 0; i < 2; i++) {
+            for(var i = 0; i < 3; i++) {
                 $collage.addImages(sounds);
             }
             $collage.appendTo('body');
