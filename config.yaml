@@ -5,5 +5,5 @@ publishdir: "public"
 index:
   category: "categories"
 baseurl: "http://rickyrombo.github.io"
-title: "RickyRombo"
+title: "rickyrombo"
 ...
