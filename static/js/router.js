@@ -36,6 +36,7 @@ define([
 					action = '';
 				}
                 $.get('/' + action).done(function(contents) {
+                    $('title').text(contents.match(/<title>(.*?)<\/title>/)[1]);
                     $('header').html($(contents).find('header').html());
 					$('#main').html($(contents).find('#main').html());
 					nav.refresh();
