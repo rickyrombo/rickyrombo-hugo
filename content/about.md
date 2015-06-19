@@ -1,5 +1,5 @@
 ---
-title: "About Me"
+title: "about me"
 date: "2015-06-17"
 description: "I'm RickyRombo"
 ---
