@@ -1,0 +1,65 @@
+
+#currentSound {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    white-space: nowrap;
+}
+
+#nowPlaying {
+    height: 40px;
+    width: calc(100% - 180px);
+}
+#currentSound {
+    display: inline-block;
+    max-width: calc(100% - 128px);
+    overflow: hidden;
+}
+
+#player {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    z-index: 500;
+    background-color: rgba(24, 24, 24, 0.85);
+    border-color:#080808
+}
+#player>div {
+    max-width: 1280px;
+}
+#player ul {
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+    float: left;
+}
+#player li {
+    display: inline-block;
+    float: left;
+    margin: 0 8px;
+}
+#player a{
+    padding: 15px 0;
+    color: #999;
+    line-height: 20px;
+    display: block;
+}
+#player a:hover {
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+}
+#soundcloud-controls a:hover, #soundcloud-controls a {
+    cursor: auto;
+    color: #333;
+}
+#player .time {
+    min-width: 32px;
+    max-width: 40px;
+    text-align: right;
+}
+#player .time a:hover{
+    cursor: auto;
+    color: #999;
+}

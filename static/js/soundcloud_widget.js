@@ -56,6 +56,11 @@ define(['jquery', 'soundcloud_api'], function($, SC_API){
                     break;
                 }
             }
+        },
+        parseMilleseconds: function(ms) {
+            var minutes = Math.floor(ms/1000/60);
+            var seconds = Math.floor(ms/1000) % 60;
+            return minutes + ':' + ('0' + seconds).slice(-2)
         }
     };
     Widget.widget.bind(SC.Widget.Events['FINISH'], function(){
@@ -63,8 +68,8 @@ define(['jquery', 'soundcloud_api'], function($, SC_API){
     });
     Widget.widget.bind(SC.Widget.Events['PLAY'], function(){
         Widget.widget.getCurrentSound(function(sound){
-            $('#nowPlaying a').attr('href', sound.permalink_url);
-            $('#nowPlaying span').text(sound.title);
+            $('#soundTitle').attr('href', sound.permalink_url);
+            $('#soundTitle').text(sound.title);
             $('#playToggle>.glyphicon').removeClass('glyphicon-play');
             $('#playToggle>.glyphicon').addClass('glyphicon-pause');
         });
@@ -73,6 +78,13 @@ define(['jquery', 'soundcloud_api'], function($, SC_API){
         Widget.widget.getCurrentSound(function(sound){
             $('#playToggle>.glyphicon').removeClass('glyphicon-pause');
             $('#playToggle>.glyphicon').addClass('glyphicon-play');
+        });
+    });
+    Widget.widget.bind(SC.Widget.Events['PLAY_PROGRESS'], function(e){
+        var pos = Widget.parseMilleseconds(e.currentPosition);
+        $('#soundPosition').text(pos);
+        Widget.widget.getCurrentSound(function(sound){
+            $('#soundDuration').text(Widget.parseMilleseconds(sound.duration - e.currentPosition + 500));
         });
     });
     $('#playToggle').click(function(e){
