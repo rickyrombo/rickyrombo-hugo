@@ -32,6 +32,25 @@ section h2, article h2{
 	padding-bottom: 8px;
 	margin-bottom: 16px;
 }
+
+img {
+    max-width: 100%;
+}
+
+header .col {
+    display: table;
+    min-height: 100px;
+}
+
+header .col>div {
+    display: table-cell;
+    vertical-align: bottom;
+}
+
+h1, h2, h3, .page-tagline {
+    text-transform: lowercase;
+}
+
 /*
  * Page Structure
  */
@@ -79,15 +98,6 @@ section h2, article h2{
 	}
 }
 */
-header .col {
-    display: table;
-    min-height: 100px;
-}
-
-header .col>div {
-    display: table-cell;
-    vertical-align: bottom;
-}
 
 .page-title h1{
 	font-size: 72px;
@@ -140,10 +150,6 @@ header .col>div {
     width: 100%;
 }
 
-img {
-    max-width: 100%;
-}
-
 .full-art {
     position: relative;
     margin-bottom: 20px;
@@ -158,6 +164,7 @@ img {
     margin: 10px;
     font-size: 21px;
     word-break: break-word;
+    text-transform: none;
 }
 @media(min-width: 420px ){
     .pair > div {
