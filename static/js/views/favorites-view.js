@@ -21,7 +21,7 @@ define([
                client_id: '4790864defb6a0d7eb3017d49a31b273'
            });
            var $this = this;
-           var title = 'Favorites';
+           var title = 'favorites';
            SC.get('/users/rickyrombo/favorites', {limit: 48, offset: this.loads++ * 48} , function(tracks){
                tracks.forEach(function(sound){
                    if (sound.artwork_url){

@@ -18,7 +18,7 @@ define([
                 SC.initialize({
                     client_id: '4790864defb6a0d7eb3017d49a31b273'
                 });
-                var title = 'Music';
+                var title = 'music';
                 var $this = this;
                 var html = SC.get('/users/rickyrombo/tracks', {limit: 200} , function(tracks){
                     var sounds = [];

@@ -18,7 +18,7 @@ define([
            });
            var a = $.Deferred();
            var $this = this;
-           var title = 'Followings';
+           var title = 'followings';
            SC.get('/users/rickyrombo/followings', {limit: 48} , function(raw_users){
                var users = [];
                raw_users.forEach(function(user){
