@@ -245,6 +245,10 @@ h1, h2, h3, .page-tagline {
         height: 180px;
     }
 }
+.navbar-toggle {
+    margin-left: calc(100% - 170px);
+}
+
 .pair {
     padding: 0;
 }
