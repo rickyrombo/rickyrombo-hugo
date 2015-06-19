@@ -81,11 +81,15 @@ define(['jquery', 'soundcloud_api'], function($, SC_API){
         });
     });
     Widget.widget.bind(SC.Widget.Events['PLAY_PROGRESS'], function(e){
+        if ($('#curPos').data('dragging') === true) {
+            return;
+        }
         var pos = Widget.parseMilleseconds(e.currentPosition);
         $('#soundPosition').text(pos);
         Widget.widget.getCurrentSound(function(sound){
             $('#soundDuration').text(Widget.parseMilleseconds(sound.duration - e.currentPosition + 500));
         });
+        $('#curPos').css('left', Math.floor(e.relativePosition * 284 - 3) + 'px');
     });
     $('#playToggle').click(function(e){
         Widget.widget.toggle();
@@ -95,6 +99,28 @@ define(['jquery', 'soundcloud_api'], function($, SC_API){
     });
     $('#playPrev').click(function(){
         Widget.prev();
+    });
+    $('#timePos').on('mousedown', function(e){
+        console.log($('#curPos').data('dragging'));
+        $('#curPos').data('dragging', true);
+    });
+    $('#timePos').on('mousemove', function(e){
+        if ($('#curPos').data('dragging') === true){
+            $('#curPos').css('left', e.offsetX);
+            Widget.widget.getCurrentSound(function(sound){
+                $('#soundPosition').text(Widget.parseMilleseconds(sound.duration * e.offsetX / 284));
+                $('#soundDuration').text(Widget.parseMilleseconds(sound.duration * (284 - e.offsetX) / 284 + 500));
+            });
+        }
+    });
+    $('#timePos').on('mouseup', function(e){
+        Widget.widget.play();
+        $('#curPos').data('dragging', false);
+        var percentage = e.offsetX / 284;
+        console.log(e.offsetX, percentage);
+        Widget.widget.getCurrentSound(function(sound){
+            Widget.widget.seekTo(Math.max(percentage * sound.duration, 0));
+        });
     });
 //    Widget.widget.bind(SC.Widget.Events['FINISH'], function(){
 //        Widget.getCurrentSound(function(sound){
