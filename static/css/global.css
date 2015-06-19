@@ -245,10 +245,16 @@ h1, h2, h3, .page-tagline {
         height: 180px;
     }
 }
+
+@media (max-width: 256px) {
+    .rr-navbar .rr-nav-social {
+        float: left;
+    }
+}
+
 .navbar-toggle {
     margin-left: calc(100% - 170px);
 }
-
 .pair {
     padding: 0;
 }

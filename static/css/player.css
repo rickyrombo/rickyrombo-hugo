@@ -33,6 +33,7 @@
     padding: 0;
     list-style: none;
     float: left;
+    overflow: hidden;
 }
 #player li {
     display: inline-block;
@@ -68,6 +69,14 @@
     width: 284px;
     height: 100%;
     cursor: pointer;
+}
+@media (max-width: 768px) {
+    #player #timePos, #player .time {
+        display: none;
+    }
+    #player #currentSound {
+        max-width: 100%;
+    }
 }
 #timeLine {
     height: 1px;
