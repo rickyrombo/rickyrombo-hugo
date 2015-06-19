@@ -3,7 +3,7 @@ define([
     'underscore',
     'backbone',
     'hb!../templates/page-template.html',
-    'hb!../templates/favorites-template.html',
+    'hb!../templates/sound-grid-template.html',
     'hb!../templates/partials/sound.html',
     'templates/helpers/if_mod',
     'soundcloud_widget',

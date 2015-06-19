@@ -4,7 +4,7 @@ define([
     'backbone',
     'handlebars',
     'hb!../templates/page-template.html',
-    'hb!../templates/music-template.html',
+    'hb!../templates/sound-grid-template.html',
     'hb!../templates/partials/sound.html',
     'templates/helpers/if_mod',
     'soundcloud_widget',
@@ -31,8 +31,7 @@ define([
 
                     var musicHtml = MusicTemplate(
                         {
-                            recent_sounds: sounds.splice(0,4),
-                            other_sounds: sounds
+                            sounds: sounds,
                         },
                         {
                             partials: {
@@ -42,7 +41,7 @@ define([
                                 if_mod: if_mod,
                             }
                         });
-                    var html = PageTemplate({ main: musicHtml });
+                    var html = musicHtml;
                     var persistingTitle = $('title').text().split('|')[1];
                     $('title').text(title + ' |' +  persistingTitle);
                     $this.html = html;
@@ -64,7 +63,7 @@ define([
                 if (!this.html){
                     var $this = this;
                     this.template().done(function(){
-                        $this.$el.html($this.html);
+                        $this.$el.html($($this.html));
                         $this.registerClickEvents();
                     });
                 } else {
