@@ -8,9 +8,6 @@ define([
     'views/favorites-view',
     'views/followings-view',
 ], function($, _, Backbone, App, nav, MusicView, FavoritesView, FollowingsView){
-        var musicView = new MusicView();
-        var favoritesView = new FavoritesView();
-        var followingsView = new FollowingsView();
         var AppRouter = Backbone.Router.extend({
             routes: {
                 'music(/)' : 'renderMusic',
@@ -20,17 +17,17 @@ define([
             },
             renderMusic: function() {
                 this.renderPage('music').done(function(){
-                    musicView.render();
+                    new MusicView().render();
                 });
             },
             renderFavorites: function() {
                 this.renderPage('favorites').done(function(){
-                    favoritesView.render();
+                    new FavoritesView().render();
                 });
             },
             renderFollowings: function() {
                 this.renderPage('followings').done(function(){
-                    followingsView.render();
+                    new FollowingsView().render();
                 })
             },
             renderPage: function(action) {
