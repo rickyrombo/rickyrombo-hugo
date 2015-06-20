@@ -97,6 +97,16 @@ h1, h2, h3, .page-tagline {
 	text-align: right;
 	padding-right: 20px;
 }
+@media(max-width: 500px){
+    .page-title h1{
+        font-size: 48px;
+    }
+}
+@media(max-width: 320px){
+    .page-title h1 {
+        font-size: 32px;
+    }
+}
 @media(max-width: 990px) {
 	.page-tagline {
 		text-align: left;
