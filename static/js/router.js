@@ -41,7 +41,9 @@ define([
 					$('#main').html($(contents).find('#main').html());
 					nav.refresh();
                     a.resolve();
-				});
+				}).fail(function() {
+                    alert('Could not open ' + (action || 'homepage') + '. \nCheck your internet connection and try again');
+                });
                 return a;
             },
             init : function(){ Backbone.history.start({pushState: true, root: "/"}); }
