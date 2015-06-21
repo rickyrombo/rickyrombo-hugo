@@ -23,6 +23,9 @@ require.config({
         'bootstrap' : {
             deps: ['jquery']
         },
+        'soundcloud_sdk': {
+            exports: 'SC'
+        }
     }
 });
 require(['app'], function(App){

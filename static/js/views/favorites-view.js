@@ -6,9 +6,9 @@ define([
     'hb!../templates/sound-grid-template.html',
     'hb!../templates/partials/sound.html',
     'templates/helpers/if_mod',
-    'soundcloud_widget',
+    'soundcloud-widget',
     'soundcloud_sdk',
-], function($, _, Backbone, PageTemplate, FavoritesTemplate, SoundPartial, if_mod, SCWidget){
+], function($, _, Backbone, PageTemplate, SoundGridTemplate, SoundPartial, if_mod, SCWidget){
    var FavoritesView = Backbone.View.extend({
        el: $('#main'),
        html: false,
@@ -33,7 +33,7 @@ define([
                if (soundsToRender.length === 0) {
                    a.reject();
                }
-               var favoritesHtml = FavoritesTemplate({
+               var favoritesHtml = SoundGridTemplate({
                    sounds: soundsToRender
                },{
                    helpers: {
@@ -55,27 +55,6 @@ define([
            });
            return a;
       },
-      registerClickEvents: function(){
-          $('a.sound-link').click(function(e){
-              if (e.ctrlKey) {
-                  return;
-              }
-              e.preventDefault();
-              var id = $(this).attr('data-id');
-              var permalink_url = $(this).attr('href');
-              e.preventDefault();
-              SCWidget.load(permalink_url, { auto_play: true });
-//              SCWidget.findSound(id).done(function(index){
-//                  if(index === false) {
-//                      SCWidget.widget.load('http://soundcloud.com/rickyrombo/favorites', { callback: function(){
-//                          SCWidget.seekToSound({id: id, permalink_url: permalink_url}, -1);
-//                      }});
-//                  } else {
-//                      SCWidget.widget.skip(index);
-//                  }
-//              });
-          });
-      },
       onscroll: function(){
           var scrollPos = $(window).scrollTop();
           var threshold = $(document).height() - $(window).height() * 3;
@@ -93,7 +72,7 @@ define([
               $(html).appendTo($this.el);
               $this.isLoadingSounds = false;
               $(window).trigger('soundsAdded', true);
-              $this.registerClickEvents();
+              SCWidget.registerClickEvents({auto_play: true});
           }).fail(function(){
               $(window).trigger('soundsAdded',  false);
           });
@@ -105,12 +84,12 @@ define([
           if (this.html === false){
               this.template().done(function(){
                   $this.$el.html($this.html);
-                  $this.registerClickEvents();
+                  SCWidget.registerClickEvents({auto_play: true});
               });
           }
           else {
               this.$el.html(this.html);
-              this.registerClickEvents();
+              SCWidget.registerClickEvents({auto_play: true});
           }
       }
    });

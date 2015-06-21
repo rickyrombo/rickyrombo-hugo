@@ -6,7 +6,7 @@ define([
     'hb!../templates/followings-template.html',
     'hb!../templates/partials/user.html',
     'templates/helpers/if_mod',
-    'soundcloud_widget',
+    'soundcloud-widget',
     'soundcloud_sdk',
 ], function($, _, Backbone, PageTemplate, FollowingsTemplate, UserPartial, if_mod, SCWidget){
    var FavoritesView = Backbone.View.extend({
