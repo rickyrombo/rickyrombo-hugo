@@ -23,6 +23,15 @@ define(['jquery', 'soundcloud_sdk'], function($, SC){
             this.$('.pause-btn').click(this.pause.bind(this));
             this.$('.next-btn').click(this.next.bind(this));
             this.$('.prev-btn').click(this.prev.bind(this));
+            var movePlayhead = function(){
+                if (Widget.$('.playhead').data('dragging') !== true){
+                    return;
+                }
+                Widget.$('.playhead').data('dragging', false);
+                $(this).off('mousemove', Widget.whileDraggingPlayhead);
+                var newPos = $('.playhead').position().left / $(this).width() * Widget.currentSound.duration;
+                Widget.currentSound.setPosition(Math.max(newPos, 0));
+            };
             this.$('.timeline').on('mousedown', function(e){
                 if (Widget.currentSound && Widget.currentSound.playState === 0){
                     Widget.play();
@@ -30,18 +39,10 @@ define(['jquery', 'soundcloud_sdk'], function($, SC){
                 }
                 Widget.$('.playhead').data('dragging', true);
                 Widget.whileDraggingPlayhead.bind($(this))(e);
+                $(this).on('mousemove', Widget.whileDraggingPlayhead);
             });
-            this.$('.timeline').on('mouseup', function(e){
-                Widget.$('.playhead').data('dragging', false);
-                var newPos = e.offsetX / $(this).width() * Widget.currentSound.duration;
-                Widget.currentSound.setPosition(Math.max(newPos, 0));
-            });
-            this.$('.timeline').on('mousemove', Widget.whileDraggingPlayhead);
-            this.$('.timeline').on('mouseout', function(e){
-                Widget.$('.playhead').data('dragging', false);
-                var newPos = e.offsetX / $(this).width() * Widget.currentSound.duration;
-                Widget.currentSound.setPosition(Math.max(newPos, 0));
-            });
+            this.$('.timeline').on('mouseup', movePlayhead);
+            this.$('.timeline').on('mouseout', movePlayhead);
             this.playlist = [193767403, 146785809, 145702406, 137999625, 130403447, 127606038, 119699390, 95331064, 73695745, 49109494, 46402737];
             this.load(this.playlist[0]);
         },
