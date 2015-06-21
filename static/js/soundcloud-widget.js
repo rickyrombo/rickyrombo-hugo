@@ -5,7 +5,7 @@ function toTimestamp(ms) {
     return (hours ? hours + ':' : '') + minutes + ':' + ('0' + seconds).slice(-2)
 }
 
-define(['jquery', 'soundcloud_sdk'], function($, SC){
+define(['jquery', 'soundcloud_sdk', 'playhead'], function($, SC, Playhead){
     var Widget = {
         playlist: [],
         soundMap: {},
@@ -23,49 +23,32 @@ define(['jquery', 'soundcloud_sdk'], function($, SC){
             this.$('.pause-btn').click(this.pause.bind(this));
             this.$('.next-btn').click(this.next.bind(this));
             this.$('.prev-btn').click(this.prev.bind(this));
-            var movePlayhead = function(){
-                if (Widget.$('.playhead').data('dragging') !== true){
-                    return;
-                }
-                Widget.$('.playhead').data('dragging', false);
-                $(this).off('mousemove', Widget.whileDraggingPlayhead);
-                var newPos = $('.playhead').position().left / $(this).width() * Widget.currentSound.duration;
-                Widget.currentSound.setPosition(Math.max(newPos, 0));
-            };
-            this.$('.timeline').on('mousedown', function(e){
-                if (Widget.currentSound && Widget.currentSound.playState === 0){
-                    Widget.play();
-                    Widget.pause();
-                }
-                Widget.$('.playhead').data('dragging', true);
-                Widget.whileDraggingPlayhead.bind($(this))(e);
-                $(this).on('mousemove', Widget.whileDraggingPlayhead);
-            });
-            this.$('.timeline').on('mouseup', movePlayhead);
-            this.$('.timeline').on('mouseout', movePlayhead);
+            this.playhead = new Playhead(this);
             this.playlist = [193767403, 146785809, 145702406, 137999625, 130403447, 127606038, 119699390, 95331064, 73695745, 49109494, 46402737];
             this.load(this.playlist[0]);
         },
         registerClickEvents: function(){
             this.generatePlaylist();
+            var $this = this;
             $(this.soundSelector).click(function(e){
                if (e.ctrlKey) {
                    return;
                }
-               var id = $(this).attr(Widget.idAttrName);
+               var id = $(this).attr($this.idAttrName);
                e.preventDefault();
-               Widget.load(id).done(function(){Widget.play();});
+                $this.load(id).done(function(){$this.play();});
             });
             this.load(this.playlist[0]);
         },
         generatePlaylist: function() {
             var playlist = [];
-            var soundMap = {};
+            var soundMap = {}
+            var $this = this;
             $(this.soundSelector).each(function(){
-                var soundId = $(this).attr(Widget.idAttrName);
+                var soundId = $(this).attr($this.idAttrName);
                 if(soundMap[soundId] === undefined) {
                     soundMap[soundId] = playlist.length;
-                    playlist.push($(this).attr(Widget.idAttrName));
+                    playlist.push($(this).attr($this.idAttrName));
                 }
             });
             this.soundMap = soundMap;
@@ -73,17 +56,18 @@ define(['jquery', 'soundcloud_sdk'], function($, SC){
         },
         load: function(id) {
             var d = $.Deferred();
+            var $this = this;
             SC.stream('/tracks/' + id, function(sound){
-                if (Widget.currentSound) {
-                    Widget.currentSound.destruct();
+                if ($this.currentSound) {
+                    $this.currentSound.destruct();
                 }
                 SC.get('/tracks/' + id, function(sounddata) {
                     sound.load({
-                        whileloading: Widget.whilePlaying
+                        whileloading: $this.whilePlaying.bind($this)
                     });
                     sound.data = sounddata;
                     sound.id = id;
-                    Widget.currentSound = sound;
+                    $this.currentSound = sound;
                     d.resolveWith(sound);
                 });
             });
@@ -93,19 +77,21 @@ define(['jquery', 'soundcloud_sdk'], function($, SC){
             if (this.currentSound && this.currentSound.paused) {
                 this.currentSound.resume();
             } else {
+                var $this = this;
                 this.load(this.playlist[0]).done(function(){
-                    Widget.play();
+                    $this.play();
                 });
             }
         },
         play: function(){
+            var $this = this;
             this.currentSound.play({
-                onplay: Widget.onPlay,
-                onresume: Widget.onPlay,
-                onpause: Widget.onStop,
-                onstop: Widget.onStop,
-                whileplaying: Widget.whilePlaying,
-                onfinish: Widget.next.bind(Widget)
+                onplay: $this.onPlay.bind($this),
+                onresume: $this.onPlay.bind($this),
+                onpause: $this.onStop.bind($this),
+                onstop: $this.onStop.bind($this),
+                whileplaying: $this.whilePlaying.bind($this),
+                onfinish: $this.next.bind($this)
             });
         },
         pause: function() {
@@ -115,50 +101,28 @@ define(['jquery', 'soundcloud_sdk'], function($, SC){
             this.currentSound.stop();
         },
         next: function() {
+            var $this = this;
             var currentIndex = this.soundMap[this.currentSound.id] || this.playlist.indexOf(this.currentSound.id);
             var nextId = this.playlist[(currentIndex + 1) % this.playlist.length];
-            this.load(nextId).done(function(){Widget.play();});
+            this.load(nextId).done(function(){$this.play();});
         },
         prev: function() {
+            var $this = this;
             var currentIndex = this.soundMap[this.currentSound.id] || this.playlist.indexOf(this.currentSound.id);
             var nextId = this.playlist[(currentIndex - 1 + this.playlist.length) % this.playlist.length];
-            this.load(nextId).done(function(){Widget.play();});
+            this.load(nextId).done(function(){$this.play();});
         },
         onPlay: function(){
-            Widget.$('.play-btn').hide();
-            Widget.$('.pause-btn').show();
+            this.$('.play-btn').hide();
+            this.$('.pause-btn').show();
         },
         onStop: function(){
-            Widget.$('.pause-btn').hide();
-            Widget.$('.play-btn').show();
+            this.$('.pause-btn').hide();
+            this.$('.play-btn').show();
         },
         whilePlaying: function() {
-            Widget.$('.now-playing').text(this.data.title);
-            if (Widget.$('.playhead').data('dragging') === true) {
-                return;
-            }
-            Widget.updatePlayhead(this);
-            Widget.$('.sound-position').text(toTimestamp(this.position));
-            Widget.$('.sound-duration').text(toTimestamp(this.durationEstimate - this.position + 500));
-        },
-        updatePlayhead: function(sound){
-            var percentage = sound.position / sound.durationEstimate;
-            var playhead = this.$('.playhead');
-            var width = playhead.parent().width();
-            var pos = width * percentage;
-            playhead.css('left', pos + 'px');
-        },
-        whileDraggingPlayhead: function(e){
-            if (Widget.$('.playhead').data('dragging') !== true) {
-                return;
-            }
-            var x = e.offsetX;
-            $(this).find('.playhead').css('left', x);
-            var width = $(this).width();
-            var position = Widget.currentSound.duration * x / width;
-            var remaining = Widget.currentSound.duration * (width - x) / width;
-            Widget.$('.sound-position').text(toTimestamp(position));
-            Widget.$('.sound-duration').text(toTimestamp(remaining + 500));
+            this.$('.now-playing').text(this.currentSound.data.title);
+            this.playhead.updatePlayhead(this.currentSound);
         }
     };
 
