@@ -1,5 +1,5 @@
 
-#currentSound {
+#player .currentSound {
     overflow: hidden;
     width: 100%;
     height: 100%;
@@ -7,11 +7,11 @@
     white-space: nowrap;
 }
 
-#nowPlaying {
+#player .nowPlaying {
     height: 40px;
-    width: calc(100% - 180px);
+    width: calc(100% - 210px);
 }
-#currentSound {
+#player .currentSound {
     display: inline-block;
     max-width: calc(100% - 428px);
     overflow: hidden;
@@ -52,10 +52,19 @@
     color: white;
     text-decoration: none;
 }
-#soundcloud-controls a:hover, #soundcloud-controls a {
+.soundcloud-controls a.disabled:hover, .soundcloud-controls a.disabled {
     cursor: auto;
     color: #333;
 }
+
+.soundcloud-controls a.enabled {
+    color: #999;
+}
+
+.soundcloud-controls a.on {
+    color: #DF5C00;
+}
+
 #player .time {
     min-width: 32px;
     max-width: 40px;
@@ -65,32 +74,35 @@
     cursor: auto;
     color: #999;
 }
-#timePos {
-    position: relative;
-    width: 284px;
-    height: 100%;
-    cursor: pointer;
-}
 @media (max-width: 768px) {
-    #player #timePos, #player .time {
+    #player .timeline, #player .time {
         display: none;
     }
-    #player #currentSound {
+    #player .currentSound {
         max-width: 100%;
     }
 }
-#timeLine {
-    height: 1px;
-    background-color: #999;
+.timeline {
     position: relative;
-    top: 24px;
+    width: 264px;
+    height: 50px;
+    cursor: pointer;
 }
-#curPos {
+.timeline > .line {
+    position: relative;
+    height: 1px;
+    margin-top: -1px;
+    background-color: #999;
+    top: 50%;
+    pointer-events: none;
+}
+.playhead {
     height: 20px;
+    margin-top: -11px;
     width: 6px;
     background-color: #BBB;
     position: relative;
-    top: -10px;
     left: -3px;
+    top: 50%;
     pointer-events: none;
 }
