@@ -1,4 +1,10 @@
-define(['jquery', 'soundcloud-widget'], function($, Widget){
+define(['jquery', 'soundcloud-widget'], function(){
+    function toTimestamp(ms) {
+        var totalSeconds = Math.floor(ms/1000);
+        var totalMinutes = Math.floor(totalSeconds/60);
+        var totalHours = Math.floor(totalMinutes/60);
+        return (totalHours ? totalHours + ':' : '') + (totalMinutes % 60) + ':' + ('0' + (totalSeconds % 60)).slice(-2)
+    }
 
     var Playhead = function(widget) {
         this.widget = widget;
@@ -26,7 +32,7 @@ define(['jquery', 'soundcloud-widget'], function($, Widget){
             widget.pause();
         }
         widget.$('.playhead').data('dragging', true);
-        this.whileDraggingPlayhead.bind(this)(e);
+        this.whileDraggingPlayhead.call(this, e);
         this.$el.on('mousemove', this.whileDraggingPlayhead.bind(this));
     };
 
@@ -49,13 +55,12 @@ define(['jquery', 'soundcloud-widget'], function($, Widget){
             return;
         }
         this.widget.$('.sound-position').text(toTimestamp(sound.position));
-        this.widget.$('.sound-duration').text(toTimestamp(sound.durationEstimate - sound.position + 500));
+        this.widget.$('.sound-duration').text(toTimestamp(Math.floor(sound.durationEstimate / 1000) * 1000 - Math.floor(sound.position / 1000) * 1000));
         var percentage = sound.position / sound.durationEstimate;
         var playhead = this.widget.$('.playhead');
         var width = playhead.parent().width();
         var pos = width * percentage;
         playhead.css('left', pos + 'px');
     };
-
     return Playhead;
 });

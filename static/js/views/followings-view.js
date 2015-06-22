@@ -6,9 +6,9 @@ define([
     'hb!../templates/followings-template.html',
     'hb!../templates/partials/user.html',
     'templates/helpers/if_mod',
-    'soundcloud-widget',
+    'player',
     'soundcloud_sdk',
-], function($, _, Backbone, PageTemplate, FollowingsTemplate, UserPartial, if_mod, SCWidget){
+], function($, _, Backbone, PageTemplate, FollowingsTemplate, UserPartial, if_mod, Player){
    var FavoritesView = Backbone.View.extend({
        el: $('#main'),
        html: false,
@@ -51,7 +51,7 @@ define([
                     return;
                 }
                 e.preventDefault();
-                SCWidget.load($(this).attr('href'), {auto_play: true});
+                Player.load($(this).attr('href'), {auto_play: true});
             });
        },
        render: function() {

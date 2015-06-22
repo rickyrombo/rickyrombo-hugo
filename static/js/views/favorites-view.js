@@ -6,9 +6,9 @@ define([
     'hb!../templates/sound-grid-template.html',
     'hb!../templates/partials/sound.html',
     'templates/helpers/if_mod',
-    'soundcloud-widget',
+    'player',
     'soundcloud_sdk',
-], function($, _, Backbone, PageTemplate, SoundGridTemplate, SoundPartial, if_mod, SCWidget){
+], function($, _, Backbone, PageTemplate, SoundGridTemplate, SoundPartial, if_mod, Player){
    var FavoritesView = Backbone.View.extend({
        el: $('#main'),
        html: false,
@@ -72,7 +72,7 @@ define([
               $(html).appendTo($this.el);
               $this.isLoadingSounds = false;
               $(window).trigger('soundsAdded', true);
-              SCWidget.registerClickEvents({auto_play: true});
+              Player.registerClickEvents({auto_play: true});
           }).fail(function(){
               $(window).trigger('soundsAdded',  false);
           });
@@ -84,12 +84,12 @@ define([
           if (this.html === false){
               this.template().done(function(){
                   $this.$el.html($this.html);
-                  SCWidget.registerClickEvents({auto_play: true});
+                  Player.registerClickEvents({auto_play: true});
               });
           }
           else {
               this.$el.html(this.html);
-              SCWidget.registerClickEvents({auto_play: true});
+              Player.registerClickEvents({auto_play: true});
           }
       }
    });
