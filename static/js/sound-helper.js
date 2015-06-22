@@ -23,7 +23,6 @@ define([
                 return s;
             }());
         });
-        console.log(r);
         $.when.apply($, r).done(function(){
             d.resolve();
         });
