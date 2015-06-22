@@ -52,11 +52,11 @@ define([
                     var $this = this;
                     this.template().done(function(){
                         $this.$el.html($($this.html));
-                        Player.registerClickEvents({auto_play: true});
+                        Player.registerClickEvents();
                     });
                 } else {
                     this.$el.html(this.html);
-                    Player.registerClickEvents({auto_play: true});
+                    Player.registerClickEvents();
                 }
             }
         });

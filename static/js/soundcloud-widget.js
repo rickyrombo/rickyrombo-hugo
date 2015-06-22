@@ -11,21 +11,25 @@ define(['jquery', 'soundcloud_sdk'], function($, SC){
         this.soundSelector = soundSelector || 'a.sound-link';
         this.idAttrName = soundIdAttrName || 'data-id';
         this.currentSound = null;
+        this.playingFrom = false;
         this.$ = this.$el.find.bind(this.$el);
     };
 
     Widget.prototype.registerClickEvents = function(){
-        this.generatePlaylist();
+        if (!this.currentSound || this.currentSound.playState === 0){
+            this.generatePlaylist();
+            this.load(this.playlist[0]);
+        }
         var $this = this;
         $(this.soundSelector).click(function(e){
             if (e.ctrlKey) {
                 return;
             }
-            var id = $(this).attr($this.idAttrName);
             e.preventDefault();
+            var id = $(this).attr($this.idAttrName);
+            $this.generatePlaylist();
             $this.load(id).done(function(){$this.play();});
         });
-        this.load(this.playlist[0]);
     };
 
     Widget.prototype.generatePlaylist = function() {
@@ -36,6 +40,7 @@ define(['jquery', 'soundcloud_sdk'], function($, SC){
             var soundId = $(this).attr($this.idAttrName);
             if(soundMap[soundId] === undefined) {
                 soundMap[soundId] = playlist.length;
+                $this.playingFrom = JSON.parse($(this).attr('data-playing-from') || false);
                 playlist.push($(this).attr($this.idAttrName));
             }
         });
@@ -95,11 +100,34 @@ define(['jquery', 'soundcloud_sdk'], function($, SC){
         this.currentSound.stop();
     };
 
-    Widget.prototype.next = function() {
+    Widget.prototype.next = function(restart) {
         var $this = this;
         var currentIndex = this.soundMap[this.currentSound.id] || this.playlist.indexOf(this.currentSound.id);
-        var nextId = this.playlist[(currentIndex + 1) % this.playlist.length];
-        this.load(nextId).done(function(){$this.play();});
+        var nextIndex = (currentIndex + 1) % this.playlist.length;
+        if (restart !== true && nextIndex < currentIndex) {
+            this.loadMore();
+        } else {
+            var nextId = this.playlist[nextIndex];
+            //TODO: make autoplay optional
+            this.load(nextId).done(function(){$this.play();});
+        }
+    };
+
+    Widget.prototype.loadMore = function(){
+        var $this = this;
+        var from = this.playingFrom;
+        if (!from){
+            $this.next(true);
+            return;
+        }
+        from.opts.offset += from.opts.limit;
+        SC.get(from.url, from.opts, function(sounds){
+            sounds.forEach(function(sound){
+                $this.soundMap[sound.id] = $this.playlist.length;
+                $this.playlist.push(sound.id);
+            });
+            $this.next(true);
+        });
     };
 
     Widget.prototype.prev = function() {
