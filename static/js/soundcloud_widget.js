@@ -1,15 +1,65 @@
-define(['jquery', 'soundcloud_api'], function($, SC_API){
+define(['jquery', 'soundcloud_api', 'soundcloud_sdk'], function($, SC_API, SC){
     //TODO: Override this widget and make load pull all the sounds for continuous play
     var Widget = {
         widget: SC.Widget($('#widget')[0]),
         playlist: [],
         currentSound: '',
         nextPending: false,
-        load: function(url, options) {
+        registerClickEvents: function(opts){
+            if (!opts.callback){
+                opts.callback = function(){
+                    $('#nowPlaying').text()
+                };
+            }
             this.generatePlaylist();
-            options.callback = function() {
-                $('#nowPlaying').text()
-            };
+            $('a.sound-link').click(function(e){
+                if (e.ctrlKey) {
+                    return;
+                }
+                var href = $(this).attr('href');
+                e.preventDefault();
+                Widget.load(href, opts);
+            });
+        },
+        load: function (url, opts) {
+            console.log('first, let me take a #selfie');
+            var oldCallback = opts.callback ? opts.callback.bind({}) : function() {};
+            opts.callback = function() {
+                Widget.widget.getCurrentSound(function(sound){
+                    console.log(sound);
+                    var $download = $('#downloadSound');
+                    var $buy = $('#buySound');
+                    $download.addClass('disabled');
+                    $download.hide();
+                    $buy.addClass('disabled');
+                    $buy.hide();
+                    var p_url = sound.purchase_url;
+                    if (p_url && (p_url.indexOf('toneden')
+                        || p_url.indexOf('facebook')
+                        || p_url.indexOf('click.dj')
+                        || p_url.indexOf('songchimp'))) {
+                        sound.download_url = p_url;
+                        sound.downloadable = true;
+                    }
+                    if (sound.downloadable){
+                        $download.show();
+                        $download.attr('href', sound.download_url);
+                        $download.removeClass('disabled');
+                    } else if (sound.purchase_url){
+                        $buy.show();
+                        $buy.removeClass('disabled');
+                        $buy.attr('href', sound.purchase_url);
+                    } else {
+                        $buy.show();
+                    }
+                });
+                oldCallback();
+            }
+            this.widget.load(url, opts);
+            this.currentSound = url;
+        },
+        poobar: function(url, options) {
+            this.generatePlaylist();
             $(window).on('soundsAdded', function(soundsAdded){
                 var i = Widget.playlist.length;
                 if (soundsAdded){
@@ -32,6 +82,7 @@ define(['jquery', 'soundcloud_api'], function($, SC_API){
             this.playlist = playlist;
         },
         next: function() {
+            console.log(Widget.playlist);
             this.widget.next();
             for (var i = 0; i < Widget.playlist.length; i++) {
                 if (Widget.playlist[i] === Widget.currentSound) {
@@ -41,7 +92,8 @@ define(['jquery', 'soundcloud_api'], function($, SC_API){
                         $(window).trigger('addMoreSounds', i);
                     } else {
                         Widget.currentSound = Widget.playlist[(i+1) % Widget.playlist.length];
-                        Widget.widget.load(Widget.currentSound, { auto_play: true });
+                        Widget.load(Widget.currentSound, { auto_play: true });
+                        console.log(Widget.currentSound);
                     }
                     break;
                 }
@@ -52,7 +104,7 @@ define(['jquery', 'soundcloud_api'], function($, SC_API){
             for (var i = 0; i < Widget.playlist.length; i++) {
                 if (Widget.playlist[i] === Widget.currentSound) {
                     Widget.currentSound = Widget.playlist[(i-1) % Widget.playlist.length];
-                    Widget.widget.load(Widget.currentSound, { auto_play: true });
+                    Widget.load(Widget.currentSound, { auto_play: true });
                     break;
                 }
             }
@@ -91,6 +143,16 @@ define(['jquery', 'soundcloud_api'], function($, SC_API){
         });
         $('#curPos').css('left', Math.floor(e.relativePosition * 284 - 3) + 'px');
     });
+    Widget.widget.bind(SC.Widget.Events.LOAD_PROGRESS, function(e){
+        console.log(e, 'fish');
+        if (e.loadProgress !== 1) {
+            return;
+        }
+        Widget.widget.getCurrentSound(function(sound){
+            $('#getSound');
+            console.log(sound);
+        })
+    });
     $('#playToggle').click(function(e){
         Widget.widget.toggle();
     });
@@ -121,6 +183,24 @@ define(['jquery', 'soundcloud_api'], function($, SC_API){
         Widget.widget.getCurrentSound(function(sound){
             Widget.widget.seekTo(Math.max(percentage * sound.duration, 0));
         });
+    });
+    $(window).on('soundsAdded', function(soundsAdded){
+        if (Widget.nextPending){
+            Widget.nextPending = false;
+            Widget.next();
+        }
+    });
+    $('#likeSound:not(.on)').click(function(){
+        console.log('init');
+        var $this = this;
+        SC.initialize({
+           client_id: '4790864defb6a0d7eb3017d49a31b273',
+           redirect_uri: 'http://localhost:1313/callback'
+        });
+        SC.connect(function(){
+            console.log('like');
+            $this.addClass('on');
+        })
     });
 //    Widget.widget.bind(SC.Widget.Events['FINISH'], function(){
 //        Widget.getCurrentSound(function(sound){
