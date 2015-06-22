@@ -162,9 +162,9 @@ h1, h2, h3, .page-tagline {
     background-color: rgba(0, 0, 0, 0.6);
     padding: 4px;
     margin: 10px;
-    font-size: 21px;
     word-break: break-word;
     text-transform: none;
+    bottom: 0;
 }
 @media(min-width: 420px ){
     .pair > div {
@@ -172,8 +172,15 @@ h1, h2, h3, .page-tagline {
         float: left;
     }
 }
-.user .full-art h3{
-    bottom: 0;
+@media(min-width: 420px){
+    .full-art h3{
+        font-size: 3vw;
+    }
+}
+@media(min-width: 992px){
+    .full-art h3 {
+        font-size: 1.5vw;
+    }
 }
 
 .full-art a {
@@ -270,4 +277,12 @@ h1, h2, h3, .page-tagline {
 }
 #widget {
     display: none;
+}
+.populate-sound {
+    width: 50%;
+    margin: 0 auto;
+}
+.populate-sound .full-art h3 {
+    top: 0;
+    bottom: auto;
 }
