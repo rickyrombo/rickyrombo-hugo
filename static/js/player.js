@@ -30,7 +30,9 @@ define(['jquery', 'soundcloud-widget', 'playhead'], function($, Widget, Playhead
     };
 
     Player.prototype.whilePlaying = function() {
-        this.$('.now-playing').text(this.currentSound.data.title);
+        this.$('.now-playing-title').text(this.currentSound.data.title);
+        var playingFrom = this.playingFrom;
+        this.$('.now-playing-from').text('playing from ' + playingFrom.title);
         this.playhead.updatePlayhead(this.currentSound);
     };
 

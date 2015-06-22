@@ -121,7 +121,7 @@ define(['jquery', 'soundcloud_sdk'], function($, SC){
             return;
         }
         from.opts.offset += from.opts.limit;
-        SC.get(from.url, from.opts, function(sounds){
+        SC.get(from.api_path, from.opts, function(sounds){
             sounds.forEach(function(sound){
                 $this.soundMap[sound.id] = $this.playlist.length;
                 $this.playlist.push(sound.id);

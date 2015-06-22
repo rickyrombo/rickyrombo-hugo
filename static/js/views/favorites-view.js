@@ -32,7 +32,8 @@ define([
                        sound.artwork_url = sound.artwork_url.replace(/large/, 't500x500');
                    }
                    sound.playing_from = JSON.stringify({
-                       url: '/users/rickyrombo/favorites',
+                       api_path: '/users/rickyrombo/favorites',
+                       url: window.location.href,
                        opts: opts,
                        title: title
                    });

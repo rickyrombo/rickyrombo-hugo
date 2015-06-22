@@ -1,20 +1,15 @@
-
-#player .currentSound {
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
-    position: relative;
-    white-space: nowrap;
-}
-
-#player .nowPlaying {
+#player .now-playing {
     height: 40px;
     width: calc(100% - 210px);
 }
-#player .currentSound {
+#player .current-sound {
     display: inline-block;
-    max-width: calc(100% - 428px);
+    width: 200px;
     overflow: hidden;
+    height: 100%;
+    position: relative;
+    white-space: nowrap;
+    padding: 11px 0 0 0;
 }
 
 #player {
@@ -41,10 +36,12 @@
     float: left;
     margin: 0 8px;
 }
-#player a{
+#player li > a{
     padding: 15px 0;
-    color: #999;
     line-height: 20px;
+}
+#player a {
+    color: #999;
     display: block;
 }
 #player a:hover {
@@ -78,13 +75,13 @@
     #player .timeline, #player .time {
         display: none;
     }
-    #player .currentSound {
+    #player .current-sound {
         max-width: 100%;
     }
 }
 .timeline {
     position: relative;
-    width: 264px;
+    width: calc(100% - 330px);
     height: 50px;
     cursor: pointer;
 }
@@ -105,4 +102,12 @@
     left: -3px;
     top: 50%;
     pointer-events: none;
+}
+#player .now-playing .current-sound a {
+    line-height: 1.2;
+    padding: 0;
+}
+#player .now-playing-from {
+    color: #777;
+    font-size: x-small;
 }
