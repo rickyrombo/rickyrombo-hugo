@@ -1,7 +1,5 @@
 define(['jquery', 'soundcloud-widget', 'playhead'], function($, Widget, Playhead){
 
-    var instance = null;
-
     function Player() {
         Widget.call(this, $('#player'), 'a.sound-link', 'data-id');
         this.init();
@@ -36,6 +34,8 @@ define(['jquery', 'soundcloud-widget', 'playhead'], function($, Widget, Playhead
         this.playhead.updatePlayhead(this.currentSound);
     };
 
+    Player.prototype.whileLoading = Player.prototype.whilePlaying;
+
     Player.prototype.onLoad = Player.prototype.whilePlaying;
 
     var getInstance = function() {
@@ -44,5 +44,7 @@ define(['jquery', 'soundcloud-widget', 'playhead'], function($, Widget, Playhead
         }
         return instance;
     }
+
+    var instance = null;
     return getInstance();
 });

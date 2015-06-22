@@ -2,12 +2,12 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'app',
+    'player',
 	'nav',
     'views/music-view',
     'views/favorites-view',
     'views/followings-view',
-], function($, _, Backbone, App, nav, MusicView, FavoritesView, FollowingsView){
+], function($, _, Backbone, player, nav, MusicView, FavoritesView, FollowingsView){
         var AppRouter = Backbone.Router.extend({
             routes: {
                 'music(/)' : 'renderMusic',
@@ -40,6 +40,7 @@ define([
                     $('header').html($(contents).find('header').html());
 					$('#main').html($(contents).find('#main').html());
 					nav.refresh();
+                    player.registerClickEvents();
                     a.resolve();
 				}).fail(function() {
                     alert('Could not open ' + (action || 'homepage') + '. \nCheck your internet connection and try again');
