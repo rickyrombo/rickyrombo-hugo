@@ -7,7 +7,8 @@ define([
     'views/music-view',
     'views/favorites-view',
     'views/followings-view',
-], function($, _, Backbone, player, nav, MusicView, FavoritesView, FollowingsView){
+    'sound-helper'
+], function($, _, Backbone, player, nav, MusicView, FavoritesView, FollowingsView, soundHelper){
         var AppRouter = Backbone.Router.extend({
             routes: {
                 'music(/)' : 'renderMusic',
@@ -40,7 +41,9 @@ define([
                     $('header').html($(contents).find('header').html());
 					$('#main').html($(contents).find('#main').html());
 					nav.refresh();
-                    player.registerClickEvents();
+                    soundHelper.populateSounds().done(function(){
+                        player.registerClickEvents();
+                    });
                     a.resolve();
 				}).fail(function() {
                     alert('Could not open ' + (action || 'homepage') + '. \nCheck your internet connection and try again');
