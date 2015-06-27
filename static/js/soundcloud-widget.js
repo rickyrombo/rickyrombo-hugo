@@ -116,7 +116,7 @@ define(['jquery', 'soundcloud_sdk'], function($, SC){
     Widget.prototype.loadMore = function(){
         var $this = this;
         var from = this.playingFrom;
-        if (!from){
+        if (!from || !from.api_path){
             $this.next(true);
             return;
         }

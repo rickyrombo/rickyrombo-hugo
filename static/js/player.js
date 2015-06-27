@@ -30,15 +30,22 @@ define(['jquery', 'soundcloud-widget', 'playhead'], function($, Widget, Playhead
     };
 
     Player.prototype.whilePlaying = function() {
-        this.$('.now-playing-title').text(this.currentSound.data.title);
-        var playingFrom = this.playingFrom;
-        this.$('.now-playing-from').text('playing from ' + playingFrom.title);
         this.playhead.updatePlayhead(this.currentSound);
     };
 
     Player.prototype.whileLoading = Player.prototype.whilePlaying;
 
-    Player.prototype.onLoad = Player.prototype.whilePlaying;
+    Player.prototype.onLoad = function() {
+        this.$('.now-playing-title').text(this.currentSound.data.title)
+            .attr('href', this.currentSound.data.permalink_url);
+        var playingFrom = this.playingFrom;
+        if (!playingFrom){
+            this.$('.now-playing-from').text('');
+        } else{
+            this.$('.now-playing-from').text('playing from ' + playingFrom.title)
+                .attr('href', playingFrom.url);
+        }
+    };
 
     var getInstance = function() {
         if (instance == null){

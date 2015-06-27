@@ -16,6 +16,10 @@ define([
                     } else if(sound.user && sound.user.avatar_url) {
                         sound.user.avatar_url = sound.user.avatar_url.replace(/large/, 't500x500');
                     }
+                    sound.playing_from = JSON.stringify({
+                        url: window.location.pathname,
+                        title: 'post'
+                    });
                     var html = SoundTemplate(sound)
                     soundMe.html(html);
                     s.resolve();

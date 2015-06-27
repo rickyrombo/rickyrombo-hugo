@@ -20,12 +20,19 @@ define([
                 });
                 var title = 'music';
                 var $this = this;
-                var html = SC.get('/users/rickyrombo/tracks', {limit: 200} , function(tracks){
+                var musicPath = '/users/rickyrombo/tracks';
+                var opts = {limit: 200};
+                var html = SC.get(musicPath, opts, function(tracks){
                     var sounds = [];
                     tracks.forEach(function(sound){
                         if (sound.artwork_url){
                             sound.artwork_url = sound.artwork_url.replace(/large/, 't500x500');
                         }
+                        sound.playing_from = JSON.stringify({
+                            url: window.location.pathname,
+                            opts: opts,
+                            title: title
+                        });
                         sounds.push(sound);
                     });
 

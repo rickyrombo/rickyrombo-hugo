@@ -26,14 +26,15 @@ define([
            var $this = this;
            var title = 'favorites';
            var opts = {limit: 48, offset: this.loads++ * 48};
-           SC.get('/users/rickyrombo/favorites', opts, function(tracks){
+           var favoritesPath = '/users/rickyrombo/favorites';
+           SC.get(favoritesPath, opts, function(tracks){
                tracks.forEach(function(sound){
                    if (sound.artwork_url){
                        sound.artwork_url = sound.artwork_url.replace(/large/, 't500x500');
                    }
                    sound.playing_from = JSON.stringify({
-                       api_path: '/users/rickyrombo/favorites',
-                       url: window.location.href,
+                       api_path: favoritesPath,
+                       url: window.location.pathname,
                        opts: opts,
                        title: title
                    });

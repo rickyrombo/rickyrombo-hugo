@@ -6,4 +6,7 @@ index:
   category: "categories"
 baseurl: "http://rickyrombo.github.io"
 title: "rickyrombo"
+taxonomies:
+  artist: "artists"
+  track: "tracks"
 ...
