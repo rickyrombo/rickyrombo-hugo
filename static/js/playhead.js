@@ -21,7 +21,7 @@ define(['jquery', 'soundcloud-widget'], function(){
         }
         widget.$('.playhead').data('dragging', false);
         this.$el.off('mousemove', this.whileDraggingPlayhead.bind(this));
-        var newPos = widget.$('.playhead').position().left / this.$el.width() * widget.currentSound.durationEstimate;
+        var newPos = widget.$('.playhead').width() / this.$el.width() * widget.currentSound.durationEstimate;
         widget.currentSound.setPosition(Math.max(newPos, 0));
     };
 
@@ -42,7 +42,7 @@ define(['jquery', 'soundcloud-widget'], function(){
             return;
         }
         var x = e.offsetX;
-        widget.$('.playhead').css('left', x);
+        widget.$('.playhead').css('width', x);
         var width = this.$el.width();
         var position = this.widget.currentSound.durationEstimate * x / width;
         var remaining = this.widget.currentSound.durationEstimate * (width - x) / width;
@@ -60,7 +60,8 @@ define(['jquery', 'soundcloud-widget'], function(){
         var playhead = this.widget.$('.playhead');
         var width = playhead.parent().width();
         var pos = width * percentage;
-        playhead.css('left', pos + 'px');
+        playhead.css('width', pos + 'px');
+        this.widget.$('.loadhead').css('width', sound.bytesLoaded/sound.bytesTotal * this.$el.width())
     };
     return Playhead;
 });

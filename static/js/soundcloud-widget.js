@@ -26,7 +26,7 @@ define(['jquery', 'soundcloud_sdk'], function($, SC){
                 return;
             }
             e.preventDefault();
-            var id = $(this).attr($this.idAttrName);
+            var id = Number($(this).attr($this.idAttrName));
             $this.generatePlaylist();
             $this.load(id).done(function(){$this.play();});
         });
@@ -37,7 +37,7 @@ define(['jquery', 'soundcloud_sdk'], function($, SC){
         var soundMap = {};
         var $this = this;
         $(this.soundSelector).each(function(){
-            var soundId = $(this).attr($this.idAttrName);
+            var soundId = Number($(this).attr($this.idAttrName));
             if(soundMap[soundId] === undefined) {
                 soundMap[soundId] = playlist.length;
                 $this.playingFrom = JSON.parse($(this).attr('data-playing-from') || false);
@@ -49,6 +49,7 @@ define(['jquery', 'soundcloud_sdk'], function($, SC){
     };
 
     Widget.prototype.load = function(id) {
+        id = Number(id);
         var d = $.Deferred();
         var $this = this;
         SC.stream('/tracks/' + id, function(sound){

@@ -1,4 +1,4 @@
-define(['jquery', 'soundcloud-widget', 'playhead'], function($, Widget, Playhead){
+define(['jquery', 'soundcloud-widget', 'playhead', 'nav'], function($, Widget, Playhead, nav){
 
     function Player() {
         Widget.call(this, $('#player'), 'a.sound-link', 'data-id');
@@ -31,21 +31,36 @@ define(['jquery', 'soundcloud-widget', 'playhead'], function($, Widget, Playhead
 
     Player.prototype.whilePlaying = function() {
         this.playhead.updatePlayhead(this.currentSound);
+        var $nowPlayingTitle = this.$('.now-playing-title');
+        var $this = this;
+        if ($nowPlayingTitle.text() !== this.currentSound.data.title){
+            $nowPlayingTitle.text(this.currentSound.data.title);
+            var soundcloudPath = this.currentSound.data.permalink_url;
+            var postPath = '/tracks/' + soundcloudPath.split('soundcloud.com/')[1];
+            $.get(postPath).done(function(result){
+                var json = JSON.parse(result);
+                $nowPlayingTitle.attr('href', json.posts[0].link);
+                $nowPlayingTitle.attr('target', '_self');
+                nav.refresh();
+            }).fail(function(){
+                $nowPlayingTitle.attr('href', soundcloudPath);
+                $nowPlayingTitle.attr('target', '_blank');
+                nav.refresh();
+            });
+            var playingFrom = this.playingFrom;
+            if (!playingFrom){
+                this.$('.now-playing-from').text('');
+            } else{
+                this.$('.now-playing-from').text('playing from ' + playingFrom.title)
+                    .attr('href', playingFrom.url);
+            }
+            $('.timeline .line').css('webkit-mask-image', 'url("'+this.currentSound.data.waveform_url+'")');
+        }
     };
 
     Player.prototype.whileLoading = Player.prototype.whilePlaying;
 
-    Player.prototype.onLoad = function() {
-        this.$('.now-playing-title').text(this.currentSound.data.title)
-            .attr('href', this.currentSound.data.permalink_url);
-        var playingFrom = this.playingFrom;
-        if (!playingFrom){
-            this.$('.now-playing-from').text('');
-        } else{
-            this.$('.now-playing-from').text('playing from ' + playingFrom.title)
-                .attr('href', playingFrom.url);
-        }
-    };
+    Player.prototype.onLoad = Player.prototype.whilePlaying;
 
     var getInstance = function() {
         if (instance == null){
