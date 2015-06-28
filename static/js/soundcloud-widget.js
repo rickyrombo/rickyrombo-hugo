@@ -41,7 +41,7 @@ define(['jquery', 'soundcloud_sdk'], function($, SC){
             if(soundMap[soundId] === undefined) {
                 soundMap[soundId] = playlist.length;
                 $this.playingFrom = JSON.parse($(this).attr('data-playing-from') || false);
-                playlist.push($(this).attr($this.idAttrName));
+                playlist.push(soundId);
             }
         });
         this.soundMap = soundMap;

@@ -1,6 +1,6 @@
 define('nav', ['jquery', 'router'], function($, Router){
     var refresh = function() {
-		$('a[target!="_blank"]').click(function(e){
+		$('a[target!="_blank"]').not('.sound-link').click(function(e){
 			e.preventDefault();
             $(window).off('soundsAdded');
             $(window).off('addMoreSounds');
