@@ -1,1 +1,17 @@
-<div data-url="{{.Get "url"}}" class="populate-sound">
+{{ $soundURL := .Get "url" }}
+{{ $soundJSON := getJSON "http://api.soundcloud.com/resolve.json?consumer_key=4790864defb6a0d7eb3017d49a31b273&url=" $soundURL }}
+<div class="featured-sound row-fluid">
+    <div class="left">
+        <div class="sound">
+            <div class="full-art">
+                <a data-id="{{ $soundJSON.id }}" class="sound-link full-art" href="{{ $soundJSON.permalink_url }}"><img src="{{ if $soundJSON.artwork_url }}{{$soundJSON.artwork_url}}{{else}}{{ $soundJSON.user.avatar_url }}{{end}}"/></a>
+                <h3><a target="_blank" href="{{ $soundJSON.permalink_url }}">{{ $soundJSON.title }}</a></h3>
+            </div>
+        </div>
+    </div>
+    <div class="right">
+        <h2 class="featured-sound-title"><a target="_blank" href="{{ $soundJSON.permalink_url }}">{{ $soundJSON.title }}</a></h2>
+        <h3>by <a target="_blank" href="{{ $soundJSON.user.permalink_url }}">{{ $soundJSON.user.username }}</a></h3>
+        <div class="featured-sound-description">{{ $soundJSON.description | markdownify}}</div>
+    </div>
+</div>
