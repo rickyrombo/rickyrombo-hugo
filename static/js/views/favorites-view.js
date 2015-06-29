@@ -31,6 +31,8 @@ define([
                tracks.forEach(function(sound){
                    if (sound.artwork_url){
                        sound.artwork_url = sound.artwork_url.replace(/large/, 't500x500');
+                   } else {
+                       sound.user.avatar_url = sound.user.avatar_url.replace(/large/, 't500x500');
                    }
                    sound.playing_from = JSON.stringify({
                        api_path: favoritesPath,

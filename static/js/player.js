@@ -58,6 +58,8 @@ define(['jquery', 'underscore', 'soundcloud-widget', 'playhead', 'nav'], functio
             }
             $('.timeline .line').css('webkit-mask-image', 'url("'+this.currentSound.data.waveform_url+'")');
             this.refreshUI();
+            $('.sound').removeClass('active');
+            $('#sound-' + this.currentSound.id).addClass('active');
         }
     };
 
