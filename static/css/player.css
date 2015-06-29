@@ -54,6 +54,10 @@
     cursor: auto;
     color: #333;
 }
+.player a.read-post {
+    float: left;
+    margin-right: 5px;
+}
 
 .soundcloud-controls a.enabled {
     color: #999;

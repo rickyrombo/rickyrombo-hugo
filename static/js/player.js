@@ -22,14 +22,9 @@ define(['jquery', 'underscore', 'soundcloud-widget', 'playhead', 'nav'], functio
 
     Player.prototype.registerUI = function() {
         var $this = this;
-        $('.share-sound').click(function(e){
-            e.preventDefault();
-            $this.share($(this).attr($this.idAttrName));
-        });
         $('.like-sound').click(function(e){
             e.preventDefault();
-            var $el = $(this);
-            $this.like($el.attr($this.idAttrName));
+            $this.like($(this).attr($this.idAttrName));
         });
         $('.follow-user').click(function(e){
             e.preventDefault();
@@ -53,18 +48,6 @@ define(['jquery', 'underscore', 'soundcloud-widget', 'playhead', 'nav'], functio
         var $this = this;
         if ($nowPlayingTitle.text() !== this.currentSound.data.title){
             $nowPlayingTitle.text(this.currentSound.data.title);
-            var soundcloudPath = this.currentSound.data.permalink_url;
-            var postPath = '/tracks/' + soundcloudPath.split('soundcloud.com/')[1];
-            $.get(postPath).done(function(result){
-                var json = JSON.parse(result);
-                $nowPlayingTitle.attr('href', json.posts[0].link);
-                $nowPlayingTitle.attr('target', '_self');
-                nav.refresh();
-            }).fail(function(){
-                $nowPlayingTitle.attr('href', soundcloudPath);
-                $nowPlayingTitle.attr('target', '_blank');
-                nav.refresh();
-            });
             var playingFrom = this.playingFrom;
             if (!playingFrom){
                 this.$('.now-playing-from').text('playing from "' + $('.page-title').text().toLowerCase().trim() + '"')
@@ -103,13 +86,13 @@ define(['jquery', 'underscore', 'soundcloud-widget', 'playhead', 'nav'], functio
 
     Player.prototype.refreshUI = function() {
         var sound = this.currentSound.data;
+        var $this = this;
         this.refreshGetSoundButton();
         this.$('.follow-user').attr('title', 'Follow ' + sound.user.username + ' on Soundcloud');
         this.$('.like-sound').attr(this.idAttrName, sound.id);
-        this.$('.share-sound').attr(this.idAttrName, sound.id);
         this.$('.follow-user').attr(this.idAttrName, sound.user.id);
+        this.$('.view-sound').attr('href', sound.permalink_url);
         if (this.connected) {
-            var $this = this;
             this.SC.get('/me/favorites/' + sound.id, function(e) {
                 if (!e.errors){
                     $this.$('.like-sound').addClass('on');
@@ -128,6 +111,21 @@ define(['jquery', 'underscore', 'soundcloud-widget', 'playhead', 'nav'], functio
                 }
             })
         }
+        var soundcloudPath = sound.permalink_url;
+        var postPath = '/tracks/' + soundcloudPath.split('soundcloud.com/')[1];
+        var $nowPlayingTitle = $this.$('.now-playing-title');
+        $.get(postPath).done(function(result){
+            var json = JSON.parse(result);
+            $nowPlayingTitle.attr('href', json.posts[0].link);
+            $this.$('.read-post').attr('href', json.posts[0].link).show();
+            $nowPlayingTitle.attr('target', '_self');
+            nav.refresh();
+        }).fail(function(){
+            $this.$('.read-post').hide();
+            $nowPlayingTitle.attr('href', soundcloudPath);
+            $nowPlayingTitle.attr('target', '_blank');
+            nav.refresh();
+        });
     };
 
     Player.prototype.like = function(id, callback) {
@@ -137,7 +135,6 @@ define(['jquery', 'underscore', 'soundcloud-widget', 'playhead', 'nav'], functio
             $this.connect($this.refreshUI.bind($this));
         } else {
             $this.SC.get('/me/favorites/' + id, function(e){
-                console.log(e);
                 if (e.errors){
                     $this.SC.put('/me/favorites/' + id, function() {
                         $this.refreshUI();
@@ -162,7 +159,7 @@ define(['jquery', 'underscore', 'soundcloud-widget', 'playhead', 'nav'], functio
             // for some reason, GET /me/followings/{id} throws 401
             // better hope that the follow is in the first 200.....
             $this.SC.get('/me/followings', {limit: 200}, function(followings){
-                var foundUser = _.findWhere(followings, {id: sound.user.id});
+                var foundUser = _.findWhere(followings, {id: id});
                 if(foundUser === undefined){
                     $this.SC.put('/me/followings/' + id, function(){
                         $this.refreshUI();
