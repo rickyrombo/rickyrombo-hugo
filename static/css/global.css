@@ -1,4 +1,5 @@
 @import "player.css";
+@import "featured-sound.css";
 /*
  * Load Fonts
  */
@@ -48,7 +49,7 @@ header .col>div {
     vertical-align: bottom;
 }
 
-h1, h2, h3, .page-tagline {
+h1, h2, h3, h4, .page-tagline {
     text-transform: lowercase;
 }
 
