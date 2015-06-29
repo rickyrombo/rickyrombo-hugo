@@ -1,0 +1,12 @@
+{
+        "posts": [
+        {{ range .Data.Pages }}
+            {
+                "title": "{{ .Title }}",
+                "summary": "{{ .Summary }}",
+                "link": "{{ .RelPermalink }}"
+            },
+        {{ end }}
+        {}
+        ]
+}
