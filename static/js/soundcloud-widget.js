@@ -12,6 +12,8 @@ define(['jquery', 'soundcloud_sdk'], function($, SC){
         this.idAttrName = soundIdAttrName || 'data-id';
         this.currentSound = null;
         this.playingFrom = false;
+        this.connected = false;
+        this.SC = SC;
         this.$ = this.$el.find.bind(this.$el);
     };
 
@@ -147,6 +149,14 @@ define(['jquery', 'soundcloud_sdk'], function($, SC){
     Widget.prototype.whileLoading = function() {};
 
     Widget.prototype.onLoad = function() {};
+
+    Widget.prototype.connect = function(callback) {
+        var $this = this;
+        return SC.connect(function(){
+            $this.connected = true;
+            return callback && callback();
+        })
+    };
 
     return Widget;
 });

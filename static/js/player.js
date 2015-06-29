@@ -1,4 +1,4 @@
-define(['jquery', 'soundcloud-widget', 'playhead', 'nav'], function($, Widget, Playhead, nav){
+define(['jquery', 'underscore', 'soundcloud-widget', 'playhead', 'nav'], function($, _, Widget, Playhead, nav){
 
     function Player() {
         Widget.call(this, $('#player'), 'a.sound-link', 'data-id');
@@ -17,6 +17,24 @@ define(['jquery', 'soundcloud-widget', 'playhead', 'nav'], function($, Widget, P
         this.playlist = [193767403, 146785809, 145702406, 137999625, 130403447, 127606038, 119699390, 95331064, 73695745, 49109494, 46402737];
         this.load(this.playlist[0]);
         this.playhead = new Playhead(this);
+        this.registerUI();
+    }
+
+    Player.prototype.registerUI = function() {
+        var $this = this;
+        $('.share-sound').click(function(e){
+            e.preventDefault();
+            $this.share($(this).attr($this.idAttrName));
+        });
+        $('.like-sound').click(function(e){
+            e.preventDefault();
+            var $el = $(this);
+            $this.like($el.attr($this.idAttrName));
+        });
+        $('.follow-user').click(function(e){
+            e.preventDefault();
+            $this.follow($(this).attr($this.idAttrName));
+        });
     }
 
     Player.prototype.onPlay = function(){
@@ -56,6 +74,107 @@ define(['jquery', 'soundcloud-widget', 'playhead', 'nav'], function($, Widget, P
                     .attr('href', playingFrom.url);
             }
             $('.timeline .line').css('webkit-mask-image', 'url("'+this.currentSound.data.waveform_url+'")');
+            this.refreshUI();
+        }
+    };
+
+    Player.prototype.refreshGetSoundButton = function() {
+        var sound = this.currentSound.data;
+        var download_url = sound.download_url
+            || (sound.purchase_url
+                && (sound.purchase_url.indexOf('toneden')
+                    || sound.purchase_url.indexOf('songchimp')
+                    || sound.purchase_url.indexOf('unlockthis')
+                    || sound.purchase_url.indexOf('facebook')
+                    || sound.purchase_url.indexOf('click.dj')));
+        if (sound.purchase_url && !download_url){
+            this.$('.buy-sound').parent().show();
+            this.$('.buy-sound').attr('href', this.currentSound.data.purchase_url);
+        } else {
+            this.$('.buy-sound').parent().hide();
+        }
+        if (download_url) {
+            this.$('.download-sound').parent().show();
+            this.$('.download-sound').attr('href', this.currentSound.data.download_url || this.currentSound.data.purchase_url);
+        } else {
+            this.$('.download-sound').parent().hide();
+        }
+    };
+
+    Player.prototype.refreshUI = function() {
+        var sound = this.currentSound.data;
+        this.refreshGetSoundButton();
+        this.$('.follow-user').attr('title', 'Follow ' + sound.user.username + ' on Soundcloud');
+        this.$('.like-sound').attr(this.idAttrName, sound.id);
+        this.$('.share-sound').attr(this.idAttrName, sound.id);
+        this.$('.follow-user').attr(this.idAttrName, sound.user.id);
+        if (this.connected) {
+            var $this = this;
+            this.SC.get('/me/favorites/' + sound.id, function(e) {
+                if (!e.errors){
+                    $this.$('.like-sound').addClass('on');
+                } else {
+                    $this.$('.like-sound').removeClass('on');
+                }
+            });
+            // for some reason, GET /me/followings/{id} throws 401
+            // better hope that the follow is in the first 200.....
+            this.SC.get('/me/followings', {limit: 200}, function(followings){
+                var foundUser = _.findWhere(followings, {id: sound.user.id});
+                if(foundUser !== undefined){
+                    $this.$('.follow-user').addClass('on');
+                } else {
+                    $this.$('.follow-user').removeClass('on');
+                }
+            })
+        }
+    };
+
+    Player.prototype.like = function(id, callback) {
+        id = Number(id);
+        var $this = this;
+        if (!$this.connected) {
+            $this.connect($this.refreshUI.bind($this));
+        } else {
+            $this.SC.get('/me/favorites/' + id, function(e){
+                console.log(e);
+                if (e.errors){
+                    $this.SC.put('/me/favorites/' + id, function() {
+                        $this.refreshUI();
+                        return callback && callback();
+                    });
+                } else {
+                    $this.SC.delete('/me/favorites/' + id, function() {
+                        $this.refreshUI();
+                        return callback && callback();
+                    })
+                }
+            });
+        }
+    };
+
+    Player.prototype.follow = function(id, callback) {
+        id = Number(id);
+        var $this = this;
+        if (!$this.connected){
+            $this.connect($this.refreshUI.bind($this));
+        } else {
+            // for some reason, GET /me/followings/{id} throws 401
+            // better hope that the follow is in the first 200.....
+            $this.SC.get('/me/followings', {limit: 200}, function(followings){
+                var foundUser = _.findWhere(followings, {id: sound.user.id});
+                if(foundUser === undefined){
+                    $this.SC.put('/me/followings/' + id, function(){
+                        $this.refreshUI();
+                        return callback && callback();
+                    });
+                } else {
+                    $this.SC.delete('/me/followings/' + id, function(){
+                        $this.refreshUI();
+                        return callback && callback();
+                    });
+                }
+            });
         }
     };
 
