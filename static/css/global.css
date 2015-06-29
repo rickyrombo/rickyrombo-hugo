@@ -279,11 +279,3 @@ h1, h2, h3, h4, .page-tagline {
 #widget {
     display: none;
 }
-.populate-sound {
-    width: 50%;
-    margin: 0 auto;
-}
-.populate-sound .full-art h3 {
-    top: 0;
-    bottom: auto;
-}

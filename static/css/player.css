@@ -1,8 +1,8 @@
-#player .now-playing {
+.player .now-playing {
     height: 40px;
     width: calc(100% - 210px);
 }
-#player .current-sound {
+.player .current-sound {
     display: inline-block;
     width: 200px;
     overflow: hidden;
@@ -12,7 +12,7 @@
     padding: 11px 0 0 0;
 }
 
-#player {
+.player {
     width: 100%;
     position: fixed;
     bottom: 0;
@@ -22,30 +22,30 @@
     border-color:#080808
 }
 
-#player>div {
+.player>div {
     max-width: 1280px;
 }
-#player ul {
+.player ul {
     margin: 0 auto;
     padding: 0;
     list-style: none;
     float: left;
     overflow: hidden;
 }
-#player li {
+.player li {
     display: inline-block;
     float: left;
     margin: 0 8px;
 }
-#player li > a{
+.player li > a{
     padding: 15px 0;
     line-height: 20px;
 }
-#player a {
+.player a {
     color: #999;
     display: block;
 }
-#player a:hover {
+.player a:hover {
     cursor: pointer;
     color: white;
     text-decoration: none;
@@ -63,20 +63,20 @@
     color: #DF5C00;
 }
 
-#player .time {
+.player .time {
     min-width: 32px;
     max-width: 40px;
     text-align: right;
 }
-#player .time a:hover{
+.player .time a:hover{
     cursor: auto;
     color: #999;
 }
 @media (max-width: 768px) {
-    #player .timeline, #player .time {
+    .player .timeline, .player .time {
         display: none;
     }
-    #player .current-sound {
+    .player .current-sound {
         max-width: 100%;
     }
 }
@@ -111,11 +111,11 @@
     background-color: #555;
 }
 
-#player .now-playing .current-sound a {
+.player .now-playing .current-sound a {
     line-height: 1.2;
     padding: 0;
 }
-#player .now-playing-from {
+.player .now-playing-from {
     color: #777;
     font-size: x-small;
 }
