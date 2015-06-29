@@ -49,7 +49,8 @@ define(['jquery', 'soundcloud-widget', 'playhead', 'nav'], function($, Widget, P
             });
             var playingFrom = this.playingFrom;
             if (!playingFrom){
-                this.$('.now-playing-from').text('');
+                this.$('.now-playing-from').text('playing from "' + $('.page-title').text().toLowerCase().trim() + '"')
+                    .attr('href', window.location.pathname);
             } else{
                 this.$('.now-playing-from').text('playing from ' + playingFrom.title)
                     .attr('href', playingFrom.url);
