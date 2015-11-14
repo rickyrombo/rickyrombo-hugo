@@ -11,6 +11,7 @@ require.config({
         underscore: 'lib/underscore-min',
         backbone: 'lib/backbone-min',
         album_art: 'album-art',
+        waitforimages: 'http://cdnjs.cloudflare.com/ajax/libs/jquery.waitforimages/1.5.0/jquery.waitforimages.min',
     },
     shim: {
         'underscore' : {

@@ -1,4 +1,4 @@
-define(['jquery', 'soundcloud_sdk'], function($) {
+define(['jquery', 'soundcloud_sdk', 'waitforimages'], function($) {
 //var $ = require('lib/jquery');
 //var SC = require('lib/soundcloud-sdk');
     /**
@@ -36,6 +36,9 @@ define(['jquery', 'soundcloud_sdk'], function($) {
                 $collage.addImages(sounds);
             }
             $collage.appendTo('body');
+            $collage.waitForImages(function(){
+                $collage.fadeIn(1000);
+            });
         });
     })
 })

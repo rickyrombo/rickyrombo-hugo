@@ -142,6 +142,7 @@ h1, h2, h3, h4, .page-tagline {
     overflow: hidden;
     pointer-events: none;
     opacity: 0.2;
+    display: none;
 }
 /**
 *   Page elements
