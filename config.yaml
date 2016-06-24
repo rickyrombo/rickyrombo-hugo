@@ -4,9 +4,10 @@ layoutdir: "layouts"
 publishdir: "public"
 index:
   category: "categories"
-baseurl: "http://rickyrombo.github.io"
+baseurl: "http://rickyrombo.com"
 title: "rickyrombo"
 taxonomies:
   artist: "artists"
   track: "tracks"
+  series: "series"
 ...
