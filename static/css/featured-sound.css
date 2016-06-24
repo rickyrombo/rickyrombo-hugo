@@ -1,7 +1,8 @@
 .featured-sound {
     position: relative;
-    background-color: rgba(0,0,0,0.5);
-    box-shadow: 0 0 15px 15px rgba(0,0,0,0.5);
+    background-color: #292929;
+    color: #EEE;
+    margin-bottom: 2em;
 }
 .featured-sound .left, .featured-sound .right {
     float:none;
@@ -54,4 +55,14 @@
 /*    .featured-sound .featured-sound-description {
         position: static;
     }*/
+}
+
+.spotify-play-button {
+    max-width: 100%;
+}
+
+@media(min-width: 800px) {
+    .spotify-play-button {
+        height: 370px;
+    }
 }

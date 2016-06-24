@@ -23,7 +23,8 @@ body {
 	font-family: 'Armata', sans-serif;
 	margin: 0;
 	background-color: black;
-	font-size: 10pt;
+	font-size: 2.2rem;
+    line-height: 1.75em;
     color: #DDD;
 }
 section, article {
@@ -51,6 +52,15 @@ header .col>div {
 
 h1, h2, h3, h4, .page-tagline {
     text-transform: lowercase;
+}
+
+h3, h4 {
+    font-size: 2.75rem;
+}
+
+p {
+    margin: 1.5em 0;
+    max-width: 40em;
 }
 
 /*
@@ -89,8 +99,12 @@ h1, h2, h3, h4, .page-tagline {
 	display: inline-block;
 }
 
+.rr-nav li {
+    font-size: 1.7rem;
+}
+
 .page-title h1{
-	font-size: 72px;
+	font-size: 5rem;
 }
 .page-tagline {
     font-size: large;
@@ -100,12 +114,12 @@ h1, h2, h3, h4, .page-tagline {
 }
 @media(max-width: 500px){
     .page-title h1{
-        font-size: 48px;
+        font-size: 3rem;
     }
 }
 @media(max-width: 320px){
     .page-title h1 {
-        font-size: 32px;
+        font-size: 3rem;
     }
 }
 @media(max-width: 990px) {
@@ -126,11 +140,14 @@ h1, h2, h3, h4, .page-tagline {
 .footer {
 	border-top: 2px solid #101010;
 	padding: 8px 0;
-	font-size: 8pt;
+	font-size: 1.25rem;
 	color: grey;
 	text-align: center;
     clear: both;
     margin-bottom: 50px;
+}
+.footer p {
+    max-width: 100%;
 }
 /*
 * If there's a background
@@ -230,14 +247,13 @@ h1, h2, h3, h4, .page-tagline {
     float: left;
 }
 .rr-navbar .brand {
-    font-size: medium;
+    font-size: 1.7rem;
     float: left;
 }
 .rr-nav-main {
-    max-width: 420px;
+   /* max-width: 420px;*/
 }
 .rr-nav-social {
-    max-width: 80px;
     float: right;
 }
 
@@ -261,7 +277,7 @@ h1, h2, h3, h4, .page-tagline {
         padding-bottom: 10px;
     }
     .rr-collapseable.rr-expanded {
-        height: 180px;
+        height: auto;
     }
 }
 
@@ -272,11 +288,31 @@ h1, h2, h3, h4, .page-tagline {
 }
 
 .navbar-toggle {
-    margin-left: calc(100% - 170px);
+    margin-left: calc(100% - 200px);
 }
 .pair {
     padding: 0;
 }
 #widget {
     display: none;
+}
+
+/** POST NAV **/
+
+.post-nav {
+    font-size: 1.6rem;
+}
+.post-nav::after {
+    clear: both;
+    content: " ";
+    display: block;
+}
+.post-nav-prev {
+    max-width: 50%;
+    float: left;
+}
+.post-nav-next {
+    max-width: 50%;
+    text-align: right;
+    float: right;
 }

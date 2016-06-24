@@ -19,7 +19,8 @@
     z-index: 500;
     background-color: rgba(24, 24, 24, 0.85);
     background-color: #181818;
-    border-color:#080808
+    border-color:#080808;
+    font-size: 1.35rem;
 }
 
 .player>div {
@@ -33,7 +34,6 @@
     overflow: hidden;
 }
 .player li {
-    display: inline-block;
     float: left;
     margin: 0 8px;
 }
