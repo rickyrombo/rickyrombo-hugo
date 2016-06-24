@@ -1,0 +1,12 @@
+<div class="post-nav">
+    <div class="post-nav-prev">
+        {{ if .Prev }}
+            <a class="previous" href="{{.Prev.RelPermalink}}">&lt;&lt; {{.Prev.Title}}</a>
+        {{ end }}
+    </div>
+    <div class="post-nav-next">
+        {{ if .Next }}
+            <a class="next" href="{{.Next.RelPermalink | urlize}}"> {{.Next.Title}} &gt;&gt;</a>
+        {{ end }}
+    </div>
+</div>
