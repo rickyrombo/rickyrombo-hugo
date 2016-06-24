@@ -1,0 +1,18 @@
+
+        {{ $soundURL := .Get "url" }}
+{{ $soundJSON := getJSON "http://api.soundcloud.com/resolve.json?consumer_key=4790864defb6a0d7eb3017d49a31b273&url=" $soundURL }}
+{{ $.Scratch.Set "artwork_url" (replace $soundJSON.artwork_url "large" "t500x500") }}
+<div class="row">
+    <div class="col-md-3">
+        <div id="sound-{{ $soundJSON.id }}" class="sound">
+            <div class="full-art">
+                <a data-id="{{ $soundJSON.id }}" class="sound-link full-art" href="{{ $soundJSON.permalink_url }}"><img src="{{ if ($.Scratch.Get "artwork_url") }}{{ $.Scratch.Get "artwork_url"}}{{else}}{{ $soundJSON.user.avatar_url }}{{end}}"/></a>
+                <!--<h3><a title="Play {{ $soundJSON.title }}" target="_blank" href="{{ $soundJSON.permalink_url }}">{{ $soundJSON.title }}</a></h3>-->
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <h3><a title="Play {{ $soundJSON.title }}" target="_blank" href="{{ $soundJSON.permalink_url }}">{{ $soundJSON.title }}</a></h3>
+        {{ .Inner }}
+    </div>
+</div>

@@ -1,0 +1,12 @@
+{{ $uri := .Get "uri" }}
+{{ $url := .Get "url" }}
+{{ $title := .Get "title" }}
+<div class="row">
+    <div class="col-md-3">
+        <iframe class="spotify-play-button" src="https://embed.spotify.com/?uri={{ $uri }}" width="720" height="640" frameborder="0" allowtransparency="true"></iframe>
+    </div>
+    <div class="col-md-9">
+        <h3><a title="Play {{ $title }}" target="_blank" href="{{ $url }}">{{ $title }}</a></h3>
+        {{ .Inner }}
+    </div>
+</div>
