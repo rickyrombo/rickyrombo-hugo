@@ -2,7 +2,7 @@
 title: "An Introduction to Electronic Dance Music"
 date: "2016-06-12"
 description: "An explanation of major subgenres with examples"
-draft: true
+draft: false
 series: ["Intro to EDM"]
 ---
 
