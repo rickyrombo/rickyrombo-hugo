@@ -15,7 +15,7 @@
 						<div class="page-tagline">
 							<p>{{ .Description | markdownify }}
 								{{ $baseurl := .Site.BaseURL }}
-								{{ range .Params.series }}<br /> <a href="{{ $baseurl }}/series/{{ . | urlize }}">{{ . }}</a></p>
+								{{ range .Params.series }}<br /> <a href="series/{{ . | urlize }}">{{ . }}</a></p>
 								{{end}}
 						</div>
 					</div>
