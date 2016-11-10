@@ -10,6 +10,12 @@ export default class Sound extends React.Component
         return false;
     }
 
+    componentDidMount() {
+        this.art.addEventListener('error', (e) => {
+            this.art.src = this.props.sound.user.avatar_url
+        }, false)
+    }
+
     render() {
         let art = this.props.sound.artwork_url ? this.props.sound.artwork_url : this.props.sound.user.avatar_url;
         art = art.replace(/large/, 't500x500')
@@ -22,7 +28,7 @@ export default class Sound extends React.Component
                         className="sound-link"
                         href={this.props.sound.permalink_url}
                         title={"Play "+ this.props.sound.title + " by " + this.props.sound.user.username }>
-                        <img src={art} />
+                        <img src={art} ref={(art) => {this.art = art}} />
                     </a>
                 </div>
             </div>
