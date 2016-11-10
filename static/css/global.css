@@ -159,7 +159,6 @@ p {
     overflow: hidden;
     pointer-events: none;
     opacity: 0.2;
-    display: none;
 }
 /**
 *   Page elements
@@ -185,6 +184,13 @@ p {
     text-transform: none;
     bottom: 0;
 }
+
+.sound-grid {
+    width: 100%;
+    padding: 0 2rem;
+    display: inline-block;
+}
+
 @media(min-width: 420px ){
     .pair > div {
         width: 50%;
@@ -195,10 +201,16 @@ p {
     .full-art h3{
         font-size: 3vw;
     }
+    .sound-grid {
+        width: 50%;
+    }
 }
 @media(min-width: 992px){
     .full-art h3 {
         font-size: 1.5vw;
+    }
+    .sound-grid {
+        width: 25%;
     }
 }
 

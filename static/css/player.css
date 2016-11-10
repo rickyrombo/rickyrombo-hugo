@@ -33,11 +33,11 @@
     float: left;
     overflow: hidden;
 }
-.player li {
+.player li, .player .time, .player .timeline {
     float: left;
     margin: 0 8px;
 }
-.player li > a{
+.player li > a, .player .time > a {
     padding: 15px 0;
     line-height: 20px;
 }
@@ -103,7 +103,7 @@
     margin-top: -16px;
     top: 50%;
     pointer-events: none;
-    background-color: rgba(153, 153, 153, 0.1);
+    background-color: #555;
 }
 .playhead, .loadhead {
     height: 100%;
