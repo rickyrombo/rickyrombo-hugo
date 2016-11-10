@@ -1,6 +1,7 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import SC from '../soundcloud-init';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import SC from '../../soundcloud-init'
+import AlbumArt from './AlbumArt'
 
 export default class ArtworkCollage extends React.Component
 {
@@ -24,9 +25,7 @@ export default class ArtworkCollage extends React.Component
             <div className="collage-container">
             {
                 this.state.sounds.map((sound, i) => {
-                    return (<a key={sound.id + i} href={sound.permalink_url} target='_blank' className='album-art'>
-                        <img src={sound.artwork_url} alt='' />
-                    </a>);
+                    return (<AlbumArt sound={sound} key={i} />);
                 })
             }
             </div>

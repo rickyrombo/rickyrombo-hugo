@@ -10,7 +10,6 @@ export default class Navbar extends React.Component
     }
 
     toggleNav() {
-        console.log(this.state.show)
         this.setState({show: !this.state.show})
     }
 

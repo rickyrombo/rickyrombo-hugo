@@ -155,7 +155,7 @@ p {
 .collage-container {
     position: fixed;
     top: 0;
-    width: calc(100% + 50px);
+    width: calc(100% + 100px);
     overflow: hidden;
     pointer-events: none;
     opacity: 0.2;
