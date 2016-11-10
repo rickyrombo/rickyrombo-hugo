@@ -10,17 +10,35 @@ export default class SoundCollection extends React.Component
         this.state = {
             sounds: []
         }
+        this.offset = 0
+        this.onScroll = this.onScroll.bind(this)
+    }
+
+    appendSounds() {
+        SC.get(this.props.path, {offset: this.offset, limit: 48}).then((sounds) => {
+            console.log(sounds.map((s) => s.id), this.offset)
+            this.offset += 48
+            this.setState({sounds: [...this.state.sounds, ...sounds]})
+            this.loadMore = sounds.length > 0
+        }).catch(console.error)
     }
 
     componentDidMount() {
-        SC.get(this.props.path, {limit: 48}).then((sounds) => {
-            this.setState({sounds})
-        })
+        this.appendSounds()
+        window.addEventListener('scroll', this.onScroll, false)
+    }
+
+    onScroll(e) {
+        if (this.node.offsetTop + this.node.offsetHeight - window.innerHeight * 3 < window.scrollY && this.loadMore) {
+            this.loadMore = false
+            this.appendSounds()
+        }
+        
     }
 
     render() {
         let i = 0
-        return <div className="tracks">
+        return <div ref={(container) => this.node = container} className="tracks">
             {this.state.sounds.length == 0 ? <h3>Loading...</h3> : ''}
             {this.state.sounds.map((sound) => {
                 return (
