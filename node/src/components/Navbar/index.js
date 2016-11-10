@@ -29,7 +29,6 @@ export default class Navbar extends React.Component
                         <li><a href="#/music">music</a></li>
                         <li><a href="#/series/intro-to-edm">intro to edm</a></li>
                         <li><a href="#/favorites">favorites</a></li>
-                        <li><a href="#/followings">followings</a></li>
                         <li><a href="#/about">about</a></li>
                     </ul>
 
