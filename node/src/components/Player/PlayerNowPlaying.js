@@ -12,7 +12,7 @@ export default class PlayerNowPlaying extends React.Component
         return (
         <ul className="now-playing">
             <li className="current-sound">
-                <a className="now-playing-title" target="_blank">{this.props.sound.title}</a>
+                <a className="now-playing-title" target="_blank" href={this.props.sound.permalink_url}>{this.props.sound.title}</a>
                 <a className="now-playing-from" title="Go to Soundcloud Profile" target="_blank" href={this.props.sound.user.permalink_url}>{this.props.sound.user.username}</a>
                 <a className="now-playing-from"></a>
             </li>
