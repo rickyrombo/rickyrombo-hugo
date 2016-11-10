@@ -18,9 +18,9 @@ export default class PlayerSocialButtons extends React.Component
         SC.connect().then(() => {
             return SC.put('/me/favorites/' + this.props.sound.id)
         }).then((sound) => {
-            setState({liked: true})
+            this.setState({liked: true})
         }).catch((error) => {
-            alert('Error: ' + error.message)
+            console.error('Error: ' + error.message)
         })
     }
 
@@ -28,10 +28,16 @@ export default class PlayerSocialButtons extends React.Component
         SC.connect().then(() => {
             return SC.put('/me/followings/' + this.props.sound.user.id)
         }).then((user) => {
-            setState({followed: true})
+            this.setState({followed: true})
         }).catch((error) => {
-            alert('Error: ' + error.message)
+            console.error('Error: ' + error.message)
         })
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.sound.id != nextProps.sound.id) {
+            this.setState({liked: false, followed: false})
+        }
     }
 
     render() {
