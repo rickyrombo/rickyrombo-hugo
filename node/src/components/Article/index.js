@@ -12,8 +12,8 @@ export default class Article extends React.Component
     constructor(props) {
         super(props)
         this.state = {
-            content: '',
-            title: 'Loading',
+            content: '<p>Whoops. Looks like this moved or doesn\'t exist anymore!</p>',
+            title: 'Page not found',
             series: []
         }
     }
