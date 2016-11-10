@@ -6,15 +6,19 @@ export default class PlayerSocialButtons extends React.Component
 {
     constructor(props) {
         super(props)
+        this.state = {
+            liked: false,
+            followed: false
+        }
         this.onLikeClicked = this.onLikeClicked.bind(this)
         this.onFollowClicked = this.onFollowClicked.bind(this)
     }
 
     onLikeClicked() {
         SC.connect().then(() => {
-            return SC.put('/me/likes/' + this.props.sound.id)
+            return SC.put('/me/favorites/' + this.props.sound.id)
         }).then((sound) => {
-            alert('You now like ' + sound.title)
+            setState({liked: true})
         }).catch((error) => {
             alert('Error: ' + error.message)
         })
@@ -24,7 +28,7 @@ export default class PlayerSocialButtons extends React.Component
         SC.connect().then(() => {
             return SC.put('/me/followings/' + this.props.sound.user.id)
         }).then((user) => {
-            alert('You are now following ' + user.username)
+            setState({followed: true})
         }).catch((error) => {
             alert('Error: ' + error.message)
         })
@@ -34,12 +38,12 @@ export default class PlayerSocialButtons extends React.Component
         return (
         <ul className="soundcloud-controls pull-right">
             <li>
-                <a onClick={this.onLikeClicked} title="Like this sound on Soundcloud" target="_blank">
+                <a onClick={this.onLikeClicked} className={(this.state.liked) ? 'on' : ''} title="Like this sound on Soundcloud" target="_blank">
                     <span className="glyphicon glyphicon-heart"></span>
                 </a>
             </li>
             <li>
-                <a onClick={this.onFollowClicked} title="Follow this user on Soundcloud" target="_blank">
+                <a onClick={this.onFollowClicked} className={(this.state.followed) ? 'on': ''} title="Follow this user on Soundcloud" target="_blank">
                     <span className="fa fa-user-plus"></span>
                 </a>
             </li>
