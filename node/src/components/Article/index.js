@@ -29,6 +29,7 @@ export default class Article extends React.Component
             $(headerContent).find('.series-link').each(function() {
                 series.push({name: $(this).html(), url: $(this).attr('href')})
             })
+            document.title = title + ' | rickyrombo'
             this.setState({
                 content,
                 title,
