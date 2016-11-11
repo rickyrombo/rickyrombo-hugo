@@ -12,8 +12,8 @@ export default class Article extends React.Component
     constructor(props) {
         super(props)
         this.state = {
-            content: '<p>Whoops. Looks like this moved or doesn\'t exist anymore!</p>',
-            title: 'Page not found',
+            content: '<p>Please wait...</p>',
+            title: 'Loading...',
             series: []
         }
         this.parseServerFile()
@@ -30,6 +30,7 @@ export default class Article extends React.Component
                 series.push({name: $(this).html(), url: $(this).attr('href')})
             })
             document.title = title + ' | rickyrombo'
+            window.scroll(0, 0)
             this.setState({
                 content,
                 title,
