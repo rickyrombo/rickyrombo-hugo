@@ -15,7 +15,7 @@ export default class Player extends React.Component
             sound: {
                 user: {} 
             },
-            player: {}
+            player: false
         }
 
         // Load initial track
@@ -25,8 +25,12 @@ export default class Player extends React.Component
         // })
 
         window.addEventListener('sound-clicked', (e) => {
-            this.playById(e.detail)
-            this.parsePlaylist()
+            if (this.state.sound.id == e.detail && this.state.player) {
+                this.playToggle()
+            } else {
+                this.playById(e.detail)
+                this.parsePlaylist()
+            }
         })
 
         // Bind self to event handlers
@@ -105,8 +109,10 @@ export default class Player extends React.Component
             player.on('state-change', (e) => {
                 if (e == 'playing') {
                     this.setState({isPlaying: true})
+                    window.dispatchEvent(new CustomEvent('sound-played', { detail: id }))
                 } else if (e == 'paused') {
                     this.setState({isPlaying: false})
+                    window.dispatchEvent(new CustomEvent('sound-paused', { detail: id }))
                 }
             })
             player.on('finish', () => {

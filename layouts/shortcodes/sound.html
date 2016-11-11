@@ -6,6 +6,7 @@
     <div class="col-md-3">
         <div id="sound-{{ $soundJSON.id }}" class="sound">
             <div class="full-art">
+                <div class="play-hover-overlay"><span id="play-overlay-sound-{{int $soundJSON.id }}" class="fa fa-play"></span></div>
                 <a onclick="window.dispatchEvent(new CustomEvent('sound-clicked', {detail: {{int $soundJSON.id}} })); return false" data-id="{{ int $soundJSON.id }}" class="sound-link full-art" href="{{ $soundJSON.permalink_url }}"><img src="{{ if ($.Scratch.Get "artwork_url") }}{{ $.Scratch.Get "artwork_url"}}{{else}}{{ $soundJSON.user.avatar_url }}{{end}}"/></a>
                 <!--<h3><a title="Play {{ $soundJSON.title }}" target="_blank" href="{{ $soundJSON.permalink_url }}">{{ $soundJSON.title }}</a></h3>-->
             </div>
