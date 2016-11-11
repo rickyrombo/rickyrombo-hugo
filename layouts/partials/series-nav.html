@@ -1,0 +1,21 @@
+{{ $uniqueID := .UniqueID }}
+{{ if .Params.series }}
+    {{ $allSeries := .Site.Taxonomies.series }}
+    {{ $date := .Date }}
+    {{ range $seriesName := .Params.series }}
+        <h3>continue reading <a href="#/series/{{$seriesName | urlize}}">{{ $seriesName }}</a>:</h3>
+        <ol>
+        {{ $key := $seriesName | urlize }}
+        {{ $series := index $allSeries $key }}
+        {{ range (sort $series.Pages "Date" "asc") }}
+            <li>
+                {{ if ne .UniqueID $uniqueID }}
+                <a title="{{ .Title }}" href="{{ printf "#%s" .RelPermalink }}">{{ .Title }}</a>
+                {{ else }}
+                {{ .Title }}
+                {{ end }}
+            </li>
+        {{ end }}
+        </ol>
+    {{ end }}
+{{ end }}
