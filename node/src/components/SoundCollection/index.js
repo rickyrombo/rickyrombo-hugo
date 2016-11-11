@@ -28,7 +28,7 @@ export default class SoundCollection extends React.Component
     }
 
     onScroll(e) {
-        if (this.node.offsetTop + this.node.offsetHeight - window.innerHeight * 3 < window.scrollY && this.loadMore) {
+        if (this.node && this.node.offsetTop + this.node.offsetHeight - window.innerHeight * 3 < window.scrollY && this.loadMore) {
             this.loadMore = false
             this.appendSounds()
         }
