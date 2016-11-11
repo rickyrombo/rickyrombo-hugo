@@ -15,3 +15,6 @@ My friend Peter Helstrom, (DJ Facing Tomorrow or "F2m") made this mix for New Ye
 Also note that there are a few songs that aren't technically electro house. For instance, "Fn Pig" by deadmau5 is progressive house (at least I would describe it as progressive house).
 
 I think this is all you'll need as far as understanding electro house (yes, I'm getting lazy).
+{{% spotify url="https://open.spotify.com/track/3pFs5g6H6twH454xbaxHDM" uri="spotify:track:3pFs5g6H6twH454xbaxHDM" title="deadmau5 - Ghosts 'n Stuff" %}}
+One of the most popular electro house songs out there.
+{{% /spotify %}}

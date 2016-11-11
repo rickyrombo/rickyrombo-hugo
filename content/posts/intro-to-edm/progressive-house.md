@@ -17,21 +17,31 @@ This progressive house remix of Zedd's Clarity was [the winner of the remix comp
 {{% /youtube %}}
 
 {{% sound url="https://soundcloud.com/allmau5/deadmau5-all-i-have" %}}
-It took a bit of searching but I found an upload of "All I Have" by deadmau5 somewhere on SoundCloud. Notice how similar the plucky synth here to the one in Tom Budin's remix of Clarity above. Deadmau5 also doesn't bring the kick in until a few phrases have passed.
+It took a bit of searching but I found an upload of "All I Have" by deadmau5 somewhere on SoundCloud. Notice how similar the plucky synth is to the one in Tom Budin's remix of Clarity above. Deadmau5 also doesn't bring the kick in until a few phrases have passed.
 {{% /sound %}}
 
-## Where's the drop?
+{{% spotify url="https://open.spotify.com/track/4tGghJ2euPeI7HvpkNi1CU" uri="spotify:track:4tGghJ2euPeI7HvpkNi1CU" title="deadmau5 - I Remember" %}}
+Though it is [classified by Wikipedia](https://en.wikipedia.org/wiki/I_Remember_(deadmau5_and_Kaskade_song)) as electro house, I would argue that it's more progressive. The plucks give it away, as does the repetition and building. Also note the sections that the beat drops out, and the song has to build its way back up in the phrasing emphasized earlier.
+{{% /spotify %}}
 
-So far we have yet to hear any progressive house songs with a drop. David Guetta and deadmau5 are known for bringing the genre to popularity, which then prompted producers to introduce more of a pop structure into progressive house, making it more of a pop/progressive house hybrid. In doing so, they cut the excess build time, cut phrase lengths down, and move away from the plucky sawtooth sound. The drops become the core of the song, and the kick comes out stronger in the mix. There's generally a higher energy experience, and the songs feel more danceable. Think of the "old" progressive house as a climb with a calm summit, and this "new" progressive house as a rollercoaster with a giant energetic drop.
+{{% spotify url="https://open.spotify.com/track/4GhRCSt1NJIK0osyhRS0H8" uri="spotify:track:4GhRCSt1NJIK0osyhRS0H8" %}}
+Note the repetitions and the phrasing behind adding elements. Feel the way the song builds up over time and seems to be constantly "progressing" towards something. The addition of different sounds is pretty easy to hear and happens gradually.
+{{% /spotify %}}
 
-You could probably define this new form of "progressive house" as an entirely new genre, as the sound is so far from the initial forms of progressive house. Pop house, anyone?
+{{% spotify url="https://open.spotify.com/track/4xTIknzHtjrqRQ1hlL2T8W" uri="spotify:track:4xTIknzHtjrqRQ1hlL2T8W" %}}
+I miss Swedish House Mafia. Songs like this are the reason I fell in love with EDM. Again, listen to the repetitions and the adding of different sounds and elements. This one probably has the most energetic drop of those I've inroduced so far, and is probably the most danceable. You might have noticed the trend, as I've carefully selected each song to be getting closer and closer to what today's progressive house sounds like.
+{{% /spotify %}}
+
+## Not what you expected?
+
+Let me now introduce you to "mainroom house." Progressive house now gets used as a catch-all for mainroom house, which are songs you might hear in the mainroom of a club. The drops become the core of the song, and the kick comes out stronger in the mix. There's generally a higher energy experience, and the songs feel more danceable. The songs become structured much more like pop songs - they become shorter, more often include lyrics, and have quicker builds and less of the "pluck" sound.
 
 {{% sound url="https://soundcloud.com/stevejamesofficial/the-chainsmokers-let-you-go-steve-james-remix" %}} Steve James would definitely fall into the progressive house category even though his tracks sound almost nothing like deadmau5 or the Tom Budin remix above. The original song by the Chainsmokers could also be described as progressive house. The drop includes the same synth melody but with a heavier kick and some open sawtooth synths for that higher energy. Note the way the build goes up until everything "drops" away and you're left with only the vocal for a beat before the drop kicks in. That style of drop will be very common for this subgenre.
 {{% /sound %}}
 
 {{% spotify url="https://open.spotify.com/track/05dL7chWJaVjMJnGO1YCKk" uri="spotify:track:05dL7chWJaVjMJnGO1YCKk" title="Tritonal, Cash Cash - Untouchable" %}}
 Tritonal and Cash Cash are both mostly progressive house producers. They're two of the bigger names in progressive house. Listen to the lead synth - that sort of lead tends to appear in progressive house songs. Also, notice the piano backing the song throughout. Progressive house tends to be more melodic and so you'll find piano or guitar sounds to be fairly common.
-{{% /sound %}}
+{{% /spotify %}}
 
 {{% sound url="https://soundcloud.com/two-friends/echosmith-cool-kids-gazzo-two-friends-remix-2" %}}
 Two Friends (back when they were "The Two Friends") were known for their progressive house. Take a look at a couple other Two Friends songs for more examples of progressive house's new sound: "Long Way Home" and "Our Name In Lights" are more quintessential progressive house.
