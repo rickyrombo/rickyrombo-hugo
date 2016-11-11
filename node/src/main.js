@@ -7,10 +7,16 @@ if (!window.location.hash && window.location.pathname) {
 }
 
 window.addEventListener('sound-played', function(e) {
-    document.getElementById('play-overlay-sound-' + e.detail).className = 'fa fa-pause';
+    var el = document.getElementById('play-overlay-sound-' + e.detail)
+    if (el) {
+        el.className = 'fa fa-pause';
+    }
 })
 window.addEventListener('sound-paused', function(e) {
-    document.getElementById('play-overlay-sound-' + e.detail).className = 'fa fa-play'
+    var el = document.getElementById('play-overlay-sound-' + e.detail)
+    if (el) {
+        el.className = 'fa fa-play'
+    }
 })
 
 ReactDOM.render(<App />, document.getElementById('app'))
