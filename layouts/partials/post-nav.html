@@ -1,12 +1,12 @@
 <div class="post-nav">
     <div class="post-nav-prev">
-        {{ if .Prev }}
-            <a class="previous" href="{{ printf "#%s" .Prev.RelPermalink}}">&lt;&lt; {{.Prev.Title}}</a>
+        {{ if .PrevInSection }}
+            <a class="previous" href="{{ printf "#%s" .PrevInSection.RelPermalink}}">&lt;&lt; {{.PrevInSection.Title}}</a>
         {{ end }}
     </div>
     <div class="post-nav-next">
-        {{ if .Next }}
-            <a class="next" href="{{ printf "#%s" .Next.RelPermalink }}"> {{.Next.Title}} &gt;&gt;</a>
+        {{ if .NextInSection }}
+            <a class="next" href="{{ printf "#%s" .NextInSection.RelPermalink }}"> {{.NextInSection.Title}} &gt;&gt;</a>
         {{ end }}
     </div>
 </div>
