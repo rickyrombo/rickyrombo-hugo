@@ -1,6 +1,6 @@
 ---
 title: "An Introduction to Electronic Dance Music"
-date: "2016-06-12"
+date: "2016-11-13T15:00:18-06:00"
 description: "An explanation of major subgenres with examples"
 draft: false
 series: ["Intro to EDM"]

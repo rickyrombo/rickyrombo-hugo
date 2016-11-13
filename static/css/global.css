@@ -355,3 +355,7 @@ p {
 .full-art:hover h3 {
     display: none;
 }
+code {
+    background-color: #282828;
+    color: #ff7920;
+}
