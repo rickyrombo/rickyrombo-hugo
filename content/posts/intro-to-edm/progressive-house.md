@@ -1,7 +1,7 @@
 ---
 title: "Introduction to Progressive House Music - Intro to EDM"
 date: "2017-01-12T01:52:08-06:00"
-description: "Boots and Cats and Boots and Cats and..."
+description: "pluck pluck pluck pluck"
 draft: false
 series: ["Intro to EDM"]
 ---

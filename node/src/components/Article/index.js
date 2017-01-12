@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Header from './Header'
 import MainContent from './MainContent'
 import Footer from './Footer'
 import $ from 'jquery'
@@ -24,25 +23,24 @@ export default class Article extends React.Component
             let content = $(contents).find('#main').html()
             let headerContent = $(contents).find('header').html()
             let title = $(headerContent).find('#title').html()
-            let description = $(headerContent).find('#description').html()
-            let series = []
-            $(headerContent).find('.series-link').each(function() {
-                series.push({name: $(this).html(), url: $(this).attr('href')})
-            })
             document.title = title + ' | rickyrombo'
             window.scroll(0, 0)
             this.setState({
                 content,
-                title,
-                description,
-                series
+                headerContent
             })
-        }).fail((e) => {
+        }).fail((e, contents, c, d) => {
             console.error(e)
+            console.log(contents, c, d)
+            
+            let content = $(contents).find('#main').html()
+            let headerContent = $(contents).find('header').html()
+            let title = $(headerContent).find('#title').html()
+            document.title = title + ' | rickyrombo'
+            window.scroll(0, 0)
             this.setState({
-                content: '<p>Whoops. Looks like this moved or doesn\'t exist anymore!</p>',
-                title: 'Page not found',
-                series: []
+                content,
+                headerContent
             })
         })
     }
@@ -66,11 +64,7 @@ export default class Article extends React.Component
         }
         return (
             <div className="content">
-                <Header title={this.state.title} 
-                    series={this.state.series} 
-                    description={this.state.description} 
-                    singular={this.state.singular}
-                    />
+                <header className="header" dangerouslySetInnerHTML={{__html: this.state.headerContent}}></header>
                 <MainContent content={this.state.content}>
                 {child}
                 </MainContent>

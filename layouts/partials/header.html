@@ -7,14 +7,17 @@
 		<div id="content" class="content">
 			<header class="header">
 				<div class="row">
-					<div class="col col-md-6">
+					<div class="col col-md-9">
 						<div class="page-title">
 							<h1><span id="title">{{ .Title }}</span> <span id="singular">{{ .Data.Singular }}</span></h1>
+							<p><span id="description">{{ .Description | markdownify }}</span></p>
 						</div>
 					</div>
-					<div class="col col-md-6">
+					<div class="col col-md-3">
 						<div class="page-tagline">
-							<p><span id="description">{{ .Description | markdownify }}</span>
+							<p>
+								<span id="date">{{ if .IsPage }}{{ if eq .Type "posts"}}{{ .Date.Format "January 2, 2006" }}
+								{{end}}{{end}}</span>
 								{{ $baseurl := .Site.BaseURL }}
 								{{ range .Params.series }}<br /> <a class="series-link" href="#/series/{{ . | urlize }}">{{ . }}</a></p>
 								{{end}}
