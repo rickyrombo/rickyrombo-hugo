@@ -29,10 +29,8 @@ export default class Article extends React.Component
                 content,
                 headerContent
             })
-        }).fail((e, contents, c, d) => {
-            console.error(e)
-            console.log(contents, c, d)
-            
+        }).fail((e) => {
+            let contents = e.responseText
             let content = $(contents).find('#main').html()
             let headerContent = $(contents).find('header').html()
             let title = $(headerContent).find('#title').html()
