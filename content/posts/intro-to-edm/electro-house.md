@@ -1,8 +1,8 @@
 ---
 title: "Introduction to Electro House Music - Intro to EDM"
-date: "2016-06-23"
+date: "2017-01-12T22:57:16-06:00"
 description: "Boots and cats and beep bop BASS..."
-draft: true
+draft: false
 series: ["Intro to EDM"]
 ---
 
