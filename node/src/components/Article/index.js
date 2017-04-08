@@ -57,7 +57,7 @@ export default class Article extends React.Component
                 child = <FavoritesCollection />
                 break;
             case '/music':
-                child = <SoundCollection path="/users/rickyrombo/tracks" />
+                child = <SoundCollection path="/users/1369/tracks" />
                 break;
         }
         return (
