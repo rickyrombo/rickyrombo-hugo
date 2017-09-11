@@ -23,7 +23,7 @@ It took a bit of searching but I found an upload of "All I Have" by deadmau5 som
 {{% /sound %}}
 
 {{% spotify url="https://open.spotify.com/track/4tGghJ2euPeI7HvpkNi1CU" uri="spotify:track:4tGghJ2euPeI7HvpkNi1CU" title="deadmau5 - I Remember" %}}
-Though it is [classified by Wikipedia](https://en.wikipedia.org/wiki/I_Remember_(deadmau5_and_Kaskade_song)) as electro house, I would argue that it's more progressive ([Beatport agrees](https://www.beatport.com/track/i-remember-vocal-mix/870142). The plucks give it away, as does the repetition and building. Also note the sections that the beat drops out, and the song has to build its way back up in the phrasing emphasized earlier.
+Though it is [classified by Wikipedia](https://en.wikipedia.org/wiki/I_Remember_(deadmau5_and_Kaskade_song)) as electro house, I would argue that it's more progressive ([Beatport agrees](https://www.beatport.com/track/i-remember-vocal-mix/870142)). The plucks give it away, as does the repetition and building. Also note the sections that the beat drops out, and the song has to build its way back up in the phrasing emphasized earlier.
 {{% /spotify %}}
 
 {{% spotify title="Eric Prydz - Illusions" url="https://open.spotify.com/track/2zZfag7OeUmyIdaEmfEJed" uri="spotify:track:2zZfag7OeUmyIdaEmfEJed" %}}
