@@ -359,3 +359,11 @@ code {
     background-color: #282828;
     color: #ff7920;
 }
+.image-with-caption {
+    font-size: 1.1rem;
+    line-height: 1.75em;
+}
+.caption {
+    display: inline-block;
+    margin-top: 1rem;
+}

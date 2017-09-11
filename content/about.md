@@ -5,12 +5,17 @@ description: "I'm RickyRombo"
 ---
 <div class="row">
     <section class="col-md-9">
-        <p>I'm RickyRombo. I make music sometimes. I write lots of code. I also play some Super Smash Bros. - Project Melee.</p>
-        <p>I discovered electronic music as a side effect of making computer games. One of the game developers in a chatroom posted a link to deadmau5's 4x4=12 Continuous Mix on YouTube. I gave it a listen and quickly realized I wanted to make music like that.</p>
-        <p>I might have drifted from deadmau5's style since then, but I still aim to make music for the listener. Not for the festivals, or raves, or dances, but the coders, the writers, and future artists at their computer. I write music for the people who take long walks or car rides, for those taking the bus, and for those who want to escape reality while they work.</p>
-        <p>That said, I've had a couple performances as part of <a title="UNL DJ Club Website" href="http://unldjclub.herokuapp.com">UNL DJ Club</a>, and I enjoy a good party.</p>
+        <p>I'm RickyRombo. I make music sometimes.</p>
+        <p>I like music that tells stories. I like music that paints a landscape. I like music that is just music and has no secret meaning, but only if it's good.</p>
+        <p>I have a lot of opinions and most of them are wrong. Despite being aware of this, I'll still fight you. Later I'll feel stupid, but it takes a while.</p>
+        <p>Hope you can enjoy some of the stuff I make.</p>
+        <p>- RR</p>
     </section>
     <section class="col-md-3">
-        <p><img src="/img/dj.jpg"/></a></p>
+        <p class="image-with-caption">
+            <img src="/img/dj2.jpg"/>
+            <img src="/img/dj.jpg"/>
+            <span class="caption">Virality and I performing for a warehouse in Seattle.</span>
+        </p>
     </section>
 </div>
