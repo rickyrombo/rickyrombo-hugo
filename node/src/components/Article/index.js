@@ -5,12 +5,14 @@ import Footer from './Footer'
 import $ from 'jquery'
 import SoundCollection from '../SoundCollection'
 import FavoritesCollection from '../SoundCollection/FavoritesCollection'
+import Disqus from 'react-disqus-comments'
 
 export default class Article extends React.Component
 {
     constructor(props) {
         super(props)
         this.state = {
+            id: '',
             content: '<p>Please wait...</p>',
             title: 'Loading...',
             series: []
@@ -20,26 +22,11 @@ export default class Article extends React.Component
     
     parseServerFile() {
         $.get(this.props.path).done((contents) => {
-            let content = $(contents).find('#main').html()
-            let headerContent = $(contents).find('header').html()
-            let title = $(headerContent).find('#title').html()
-            document.title = title + ' | rickyrombo'
             window.scroll(0, 0)
-            this.setState({
-                content,
-                headerContent
-            })
+            this.setState(this.parsePageData(contents))
         }).fail((e) => {
-            let contents = e.responseText
-            let content = $(contents).find('#main').html()
-            let headerContent = $(contents).find('header').html()
-            let title = $(headerContent).find('#title').html()
-            document.title = title + ' | rickyrombo'
             window.scroll(0, 0)
-            this.setState({
-                content,
-                headerContent
-            })
+            this.setState(this.parsePageData(contents))
         })
     }
 
@@ -47,6 +34,23 @@ export default class Article extends React.Component
         if(this.props.path !== this.curPath) {
             this.curPath = this.props.path
             this.parseServerFile()
+        }
+    }
+
+    parsePageData(contents) {
+        const content = $(contents).find('#main').html()
+        const headerContent = $(contents).find('header').html()
+        const titleEl = $(headerContent).find('#title')
+        const title = $(titleEl).html()
+        const id = $(titleEl).attr('data-id')
+        const type = $(titleEl).attr('data-type')
+        document.title = title + ' | rickyrombo'
+        return {
+            id,
+            title,
+            type,
+            content,
+            headerContent
         }
     }
 
@@ -58,6 +62,16 @@ export default class Article extends React.Component
                 break;
             case '/music':
                 child = <SoundCollection path="/users/1369/tracks" />
+                break;
+            default:
+                if (this.state.type === 'posts') {
+                    child = <Disqus
+                        shortname="rickyrombo"
+                        identifier={this.state.id}
+                        title={this.state.title}
+                        url={window.location.origin + this.props.path}
+                    />
+                }
                 break;
         }
         return (

@@ -5,9 +5,12 @@ import $ from 'jquery'
 export default class MainContent extends React.Component
 {
     render() {
-        if (!this.props.children) {
+        if (this.props.content) {
             return (
-                <div id="main" dangerouslySetInnerHTML={{__html: this.props.content}}>
+                <div>
+                    <div id="main" dangerouslySetInnerHTML={{__html: this.props.content}}>
+                    </div>
+                    {this.props.children}
                 </div>
             )
         }
