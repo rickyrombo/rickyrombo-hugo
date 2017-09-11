@@ -53,11 +53,13 @@ export default class PlayerSocialButtons extends React.Component
                     <span className="fa fa-user-plus"></span>
                 </a>
             </li>
+            { (this.props.sound.downloadable || this.props.sound.purchase_url) &&
             <li>
-                <a href={(this.props.sound.download_url) ? this.props.sound.download_url : this.props.sound.purchase_url} title="Get this sound" target="_blank">
-                    <span className={"glyphicon " + ((this.props.sound.download_url) ? "glyphicon-circle-arrow-down" : "glyphicon-shopping-cart")}></span>
+                <a href={(this.props.sound.downloadable) ? this.props.sound.download_url : this.props.sound.purchase_url} title="Get this sound" target="_blank">
+                    <span className={"glyphicon " + ((this.props.sound.downloadable) ? "glyphicon-circle-arrow-down" : "glyphicon-shopping-cart")}></span>
                 </a>
             </li>
+            }
             <li>
                 <a href={this.props.sound.permalink_url} title="View this sound on Soundcloud" target="_blank">
                     <span className="glyphicon glyphicon-share"></span>

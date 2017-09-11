@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import MainContent from './MainContent'
 import Footer from './Footer'
 import $ from 'jquery'
 import SoundCollection from '../SoundCollection'
@@ -55,17 +54,17 @@ export default class Article extends React.Component
     }
 
     render() {
-        let child
+        let child, disqus
         switch (this.props.path) {
             case '/favorites':
                 child = <FavoritesCollection />
                 break;
             case '/music':
-                child = <SoundCollection path="/users/1369/tracks" />
+                child = <SoundCollection path="/users/15831055/tracks" />
                 break;
             default:
                 if (this.state.type === 'posts') {
-                    child = <Disqus
+                    disqus = <Disqus
                         shortname="rickyrombo"
                         identifier={this.state.id}
                         title={this.state.title}
@@ -77,9 +76,11 @@ export default class Article extends React.Component
         return (
             <div className="content">
                 <header className="header" dangerouslySetInnerHTML={{__html: this.state.headerContent}}></header>
-                <MainContent content={this.state.content}>
-                {child}
-                </MainContent>
+                <div>
+                    {child ? <div id="main">{child}</div> 
+                           : <div id="main" dangerouslySetInnerHTML={{__html: this.state.content}}></div>}
+                    {disqus}
+                </div>
                 <Footer />
             </div>
         )

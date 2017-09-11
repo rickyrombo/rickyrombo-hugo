@@ -15,10 +15,11 @@ export default class SoundCollection extends React.Component
     }
 
     appendSounds() {
-        SC.get(this.props.path, {offset: this.offset, limit: 48}).then((sounds) => {
+        return SC.get(this.props.path, {offset: this.offset, limit: 48}).then((sounds) => {
             this.offset += 48
             this.setState({sounds: [...this.state.sounds, ...sounds]})
             this.loadMore = sounds.length > 0
+            return sounds
         }).catch(console.error)
     }
 

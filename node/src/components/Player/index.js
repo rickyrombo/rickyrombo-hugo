@@ -48,7 +48,7 @@ export default class Player extends React.Component
         return SC.get('/tracks/' + id).then((sound) => {
             this.setState({sound})
             this.getStream({sound, play: true})
-        })
+        }).catch(console.error)
     }
 
     parsePlaylist() {
@@ -70,7 +70,13 @@ export default class Player extends React.Component
     }
 
     playToggle() {
-        this.state.player.toggle()
+        if (this.state.player) {
+            if (this.state.player.isPlaying()) {
+                this.state.player.pause()
+            } else {
+                this.state.player.play()
+            }
+        }
     }
 
     seekTrack(direction) {
@@ -97,9 +103,9 @@ export default class Player extends React.Component
         let id = options.sound ? options.sound.id : this.state.sound.id
         SC.stream('/tracks/' + id).then((player) => {
             // Needed to force chrome to http streaming
-            if (player.options.protocols[0] === 'rtmp') {
-                player.options.protocols.splice(0, 1)
-            }
+            // if (player.options.protocols[0] === 'rtmp') {
+            //     player.options.protocols.splice(0, 1)
+            // }
             player.on('time', () => {
                 this.setState({position: player.currentTime()})
             })
@@ -122,7 +128,7 @@ export default class Player extends React.Component
             if (options.play) {
                 this.state.player.play()
             }
-        })
+        }).catch(console.error)
     }
 
     render() {
